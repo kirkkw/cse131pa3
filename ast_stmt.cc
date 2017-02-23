@@ -30,6 +30,7 @@ void Program::Check() {
 
     // sample test - not the actual working code
     // replace it with your own implementation
+    //
     if ( decls->NumElements() > 0 ) {
       for ( int i = 0; i < decls->NumElements(); ++i ) {
         Decl *d = decls->Nth(i);
@@ -40,6 +41,34 @@ void Program::Check() {
 	d->Check();
       }
     }
+
+    // test to see if symtables are working (comment out before turning in)
+    testSymTables();
+}
+
+void Program::testSymTables() {
+	printf("=============== symbol table testing ================\n");
+
+	SymbolTable *testTable = new SymbolTable();
+	testTable->push(); //push first scopetable
+	testTable->push(); //push second scopetable
+
+	printf("There should be 2 table. Num of tables: ");
+	printf("%zu\n", testTable->tables.size());
+
+	testTable->pop();
+	printf("Closed a scope. There should be 1 table. Num of tables: ");
+	printf("%zu\n", testTable->tables.size());
+
+	Symbol *SymbolX = new Symbol((char *)"x", NULL, E_VarDecl, 0);
+	testTable->insert(*SymbolX);
+	printf("Inserted Symbol x\n");
+
+	Symbol *findX = testTable->find((char *)"x");
+	if( findX != NULL )
+		printf("Found Symbol x\n");
+	else
+		printf("Could not find Symbol x\n");
 }
 
 StmtBlock::StmtBlock(List<VarDecl*> *d, List<Stmt*> *s) {

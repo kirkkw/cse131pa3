@@ -33,6 +33,8 @@ class Program : public Node
      const char *GetPrintNameForNode() { return "Program"; }
      void PrintChildren(int indentLevel);
      virtual void Check();
+
+     void testSymTables();
 };
 
 class Stmt : public Node
