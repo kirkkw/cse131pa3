@@ -88,6 +88,7 @@ void Program::testSymTables() {
 	else
 		printf("Could not find Symbol x\n");
 
+	printf("Everything seems to be working. Goodjob Eunice.\n");
 }
 
 StmtBlock::StmtBlock(List<VarDecl*> *d, List<Stmt*> *s) {
