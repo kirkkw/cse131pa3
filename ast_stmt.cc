@@ -69,6 +69,25 @@ void Program::testSymTables() {
 		printf("Found Symbol x\n");
 	else
 		printf("Could not find Symbol x\n");
+
+	printf("adding duplicate X, there should be an error: \n");
+	testTable->insert(*SymbolX);
+
+	printf("opening new scope and adding X\n");
+	testTable->push();
+	testTable->insert(*SymbolX);
+	if( findX != NULL )
+		printf("Found Symbol x\n");
+	else
+		printf("Could not find Symbol x\n");
+
+	printf("closing scope. The previous X should still exist\n");
+	testTable->pop();
+	if( findX != NULL )
+		printf("Found Symbol x\n");
+	else
+		printf("Could not find Symbol x\n");
+
 }
 
 StmtBlock::StmtBlock(List<VarDecl*> *d, List<Stmt*> *s) {
