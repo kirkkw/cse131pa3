@@ -51,9 +51,10 @@ struct lessStr {
 typedef map<const char *, Symbol, lessStr>::iterator SymbolIterator;
 
 class ScopedTable {
-  map<const char *, Symbol, lessStr> symbols;
+  
 
   public:
+    map<const char *, Symbol, lessStr> symbols; // make it private after testing
     ScopedTable();
     ~ScopedTable();
 
@@ -63,9 +64,9 @@ class ScopedTable {
 };
    
 class SymbolTable {
-  std::vector<ScopedTable *> tables;
- 
+   
   public:
+    std::vector<ScopedTable *> tables;  //make it private after testing
     SymbolTable();
     ~SymbolTable();
 
