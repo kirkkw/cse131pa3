@@ -48,6 +48,8 @@ class MyStack;
 class FnDecl;
 
 class Node  {
+  static SymbolTable *symtable;
+
   protected:
     yyltype *location;
     Node *parent;
