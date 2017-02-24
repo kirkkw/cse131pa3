@@ -48,11 +48,13 @@ class MyStack;
 class FnDecl;
 
 class Node  {
+
   protected:
     yyltype *location;
     Node *parent;
 
   public:
+    static SymbolTable *symtable;
     Node(yyltype loc);
     Node();
     virtual ~Node() {}

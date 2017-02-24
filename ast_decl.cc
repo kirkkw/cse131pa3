@@ -8,7 +8,12 @@
 #include "symtable.h"        
 
 void VarDecl::Check(){
-    printf("VarDecl Check!\n");
+	Symbol *declaration = new Symbol(this->id->GetName(), this, E_VarDecl);
+
+	//here check for any errors thrown by insert
+	symtable->insert(*declaration);
+
+	printf("VarDecl Check!\n");
 }
 
 void FnDecl::Check() {
