@@ -20,13 +20,18 @@ void SymbolTable::pop(){
 }
 
 /** It should get the current scoped table and call insert method on that.
- *  It should throw an error when there is a declaration conflict while inserting*/
-void SymbolTable::insert(Symbol &sym){
+ *  It should throw an error when there is a declaration conflict while inserting
+ *  returns 0 when symbol inserted without duplicates
+ *  returns 1 when symbol inserted was a duplicate but replaced*/
+int SymbolTable::insert(Symbol &sym){
 	if( find(sym.name) != NULL ) {
-		printf( "DECLARATION CONFLICT\n" );
+		//tables.back()->remove(sym);
+		//tables.back()->insert(sym);
+		return 1;
 	}
 	// back returns the last element
 	tables.back()->insert(sym);
+	return 0;
 }
 
 void SymbolTable::remove(Symbol &sym){
