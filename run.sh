@@ -1,10 +1,10 @@
 #!/bin/bash
-
+default=${1:-customtest1}
 echo "PA3EXE SOLUTION"
 
-./p3exe < public_samples/$1.glsl 
+./p3exe < public_samples/$default.glsl 
 
 echo "********************************************"
 
 echo "OUR SHITTY SOLUTION"
-./glc < public_samples/$1.glsl
+./glc < public_samples/$default.glsl

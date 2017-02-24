@@ -44,7 +44,7 @@ void Program::Check() {
     }
 
     // test to see if symtables are working (comment out before turning in)
-    //testSymTables();
+    testSymTables();
 }
 
 void Program::testSymTables() {
@@ -83,11 +83,15 @@ void Program::testSymTables() {
 		printf("Could not find Symbol x\n");
 
 	printf("closing scope. The previous X should still exist\n");
+	testTable->remove(*SymbolX);
+	printf("Removed SymbolX!\n");
 	testTable->pop();
-	if( findX != NULL )
+	testTable->remove(*SymbolX);
+	Symbol *findXX = testTable->find((char *)"x");
+	if( findXX != NULL)
 		printf("Found Symbol x\n");
 	else
-		printf("Could not find Symbol x\n");
+		printf("no? Could not find Symbol x\n");
 
 	printf("Everything seems to be working. Goodjob Eunice.\n");
 }
