@@ -5,7 +5,8 @@
 #include "symtable.h"
 
 SymbolTable::SymbolTable(){
-	//tables = new std::vector<ScopedTable *>();
+	tables.push_back(new ScopedTable());
+
 }
 
 /** It pushes the current scope to the end of the vector */
@@ -34,7 +35,8 @@ void SymbolTable::remove(Symbol &sym){
 }
 /** It should return null if name is not found, return symbol otherwise */
 Symbol* SymbolTable::find(const char *name){
-	return tables.back()->find(name) ;
+	ScopedTable* sp = tables.back();
+  return sp->find(name) ;
 }
 
 
@@ -53,7 +55,10 @@ void ScopedTable::remove(Symbol &sym){
 }
 
 Symbol* ScopedTable::find(const char *name){
-	if(symbols.find(name) !=  symbols.end()) return &symbols.find(name)->second;
+	if(symbols.find(name) !=  symbols.end()){
+		printf("return symbol");
+    		return &symbols.find(name)->second;
+	}
 	else return NULL;
 }
 
