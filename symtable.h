@@ -73,7 +73,7 @@ class SymbolTable {
     void push();
     void pop();
 
-    void insert(Symbol &sym);
+    int insert(Symbol &sym);
     void remove(Symbol &sym);
     Symbol *find(const char *name);
 

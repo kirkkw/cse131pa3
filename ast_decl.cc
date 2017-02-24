@@ -11,13 +11,24 @@ void VarDecl::Check(){
 	Symbol *declaration = new Symbol(this->id->GetName(), this, E_VarDecl);
 
 	//here check for any errors thrown by insert
-	symtable->insert(*declaration);
+	//
+	Symbol *oldDecl = symtable->find(this->id->GetName());
+	int error = symtable->insert(*declaration);
+	// push this error upstream so we have logic for cascading errors
+	if(error == 1) {
+
+		symtable->remove(*oldDecl);
+		ReportError::DeclConflict(this, oldDecl->decl);
+		symtable->insert(*declaration);
+	}
 
 	printf("VarDecl Check!\n");
 }
 
 void FnDecl::Check() {
     printf("FuncDecl Check!\n");
+	Symbol *declaration = new Symbol(this->id->GetName(), this, E_FunctionDecl);
+	symtable->insert(*declaration);
 }
          
 Decl::Decl(Identifier *n) : Node(*n->GetLocation()) {
