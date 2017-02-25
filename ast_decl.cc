@@ -22,7 +22,10 @@ void VarDecl::Check(){
 		symtable->insert(*declaration);
 	}
 
-	printf("VarDecl Check!\n");
+	//types???
+	this->type->PrintToStream(cout);
+
+	//printf("VarDecl Check!\n");
 }
 
 void FnDecl::Check() {
