@@ -32,7 +32,7 @@ class Expr : public Stmt
     
     virtual Type* getType(bool *typeFlag){
 
-      return new Type("int"); //TODO: change this???
+      return Type::errorType;
     }
 
 };
@@ -99,6 +99,7 @@ class VarExpr : public Expr
     const char *GetPrintNameForNode() { return "VarExpr"; }
     void PrintChildren(int indentLevel);
     Identifier *GetIdentifier() {return id;}
+    Type* getType(bool *typeFlag);
 };
 
 class Operator : public Node 
