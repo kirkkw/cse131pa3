@@ -39,12 +39,11 @@ void Program::Check() {
          * semantically correct.
          */
 	d->Check();
-	printf("%zu\n", d->symtable->tables.size());
       }
     }
 
     // test to see if symtables are working (comment out before turning in)
-    testSymTables();
+    //testSymTables();
 }
 
 void Program::testSymTables() {
