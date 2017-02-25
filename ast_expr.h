@@ -29,6 +29,12 @@ class Expr : public Stmt
     friend std::ostream& operator<< (std::ostream& stream, Expr * expr) {
         return stream << expr->GetPrintNameForNode();
     }
+    
+    virtual Type* getType(){
+
+      return new Type("int");
+    }
+
 };
 
 class ExprError : public Expr
@@ -56,6 +62,8 @@ class IntConstant : public Expr
     IntConstant(yyltype loc, int val);
     const char *GetPrintNameForNode() { return "IntConstant"; }
     void PrintChildren(int indentLevel);
+    Type* getType() { 
+    return new Type("int"); }
 };
 
 class FloatConstant: public Expr 
