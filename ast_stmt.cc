@@ -201,8 +201,7 @@ void SwitchStmt::PrintChildren(int indentLevel) {
 void StmtBlock::Check() {
 	printf("StmtBlock Check!\n");
 	 
-	/** go through the list of var declarations **/
-	cout << "num of elems: " << stmts->NumElements() << "\n" ;
+	/** go through the list of stmts declarations **/
 	if(stmts->NumElements() > 0) {
 		for(int i=0; i < stmts->NumElements(); i++){
 			Stmt* stmt = stmts->Nth(i);
