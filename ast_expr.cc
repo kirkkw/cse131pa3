@@ -133,3 +133,16 @@ void Call::PrintChildren(int indentLevel) {
    if (actuals) actuals->PrintAll(indentLevel+1, "(actuals) ");
 }
 
+
+/****************************************************************/
+Type* ArithmeticExpr::getType() {
+	char* ltype = left->getType()->GetTypeName();
+	char* rtype = right->getType()->GetTypeName();
+	if( !strcmp(ltype, rtype) ) {
+		return left->getType();
+	} else {
+		ReportError::IncompatibleOperands(op, left->getType(), right->getType());
+		return NULL;
+	}
+}
+

@@ -19,9 +19,35 @@ void VarDecl::Check(){
 		Symbol *oldDecl = symtable->find(this->id->GetName());
 		symtable->remove(*oldDecl);
 		ReportError::DeclConflict(this, oldDecl->decl);
+
+		/*
+		if( v == NULL ) cout << "v is null\n";
+		else {	
+			Expr * ex =  v->assignTo;
+			if(ex == NULL ) "ex is null\n";
+			else { cout << "Type: " << ex->getType()->GetTypeName() << "\n"; }
+		}
+		*/
+
 		symtable->insert(*declaration);
 	}
+
+			// checks for type error
+		VarDecl * v = dynamic_cast<VarDecl*>(this);
+		Type * vtype = v->assignTo->getType();
+		if( vtype != NULL ) {
+			char* type_assign = v->assignTo->getType()->GetTypeName();
+			
+			if( !strcmp (this->type->GetTypeName(), type_assign) ) {
+				cout << "SAME TYPE\n" ;
+			} else {
+				cout << "expression type: " << type_assign << "\n" ;
+				cout << "this type: " << this->type->GetTypeName() << "\n" ;
+				ReportError::InvalidInitialization(this->id, this->type, v->assignTo->getType());
+			}
+		}
 	
+	/*
 	// get the type of var decl expression
 	VarDecl * v = dynamic_cast<VarDecl*>(this);
 	if( v == NULL ) cout << "v is null\n";
@@ -30,6 +56,7 @@ void VarDecl::Check(){
 		if(ex == NULL ) "ex is null\n";
 		else { cout << "Type: " << ex->getType()->GetTypeName() << "\n"; }
 	}
+	*/
 
 	
 }

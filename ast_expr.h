@@ -62,8 +62,7 @@ class IntConstant : public Expr
     IntConstant(yyltype loc, int val);
     const char *GetPrintNameForNode() { return "IntConstant"; }
     void PrintChildren(int indentLevel);
-    Type* getType() { 
-    return new Type("int"); }
+    Type* getType() { return new Type("int"); }
 };
 
 class FloatConstant: public Expr 
@@ -75,6 +74,7 @@ class FloatConstant: public Expr
     FloatConstant(yyltype loc, double val);
     const char *GetPrintNameForNode() { return "FloatConstant"; }
     void PrintChildren(int indentLevel);
+    Type* getType() { return new Type("float"); }
 };
 
 class BoolConstant : public Expr 
@@ -86,6 +86,7 @@ class BoolConstant : public Expr
     BoolConstant(yyltype loc, bool val);
     const char *GetPrintNameForNode() { return "BoolConstant"; }
     void PrintChildren(int indentLevel);
+    Type* getType() { return new Type("bool"); }
 };
 
 class VarExpr : public Expr
@@ -132,6 +133,7 @@ class ArithmeticExpr : public CompoundExpr
     ArithmeticExpr(Expr *lhs, Operator *op, Expr *rhs) : CompoundExpr(lhs,op,rhs) {}
     ArithmeticExpr(Operator *op, Expr *rhs) : CompoundExpr(op,rhs) {}
     const char *GetPrintNameForNode() { return "ArithmeticExpr"; }
+    Type* getType();
 };
 
 class RelationalExpr : public CompoundExpr 

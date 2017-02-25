@@ -11,6 +11,6 @@ int x;
 int x();
 */
 
-
-int y = 5;
-//int z = (5.0 + 4.0);
+bool b = 6;
+int y = 5.0;
+int z = (5.0 + 4);
