@@ -31,7 +31,13 @@ void VarDecl::Check(){
 void FnDecl::Check() {
     printf("FuncDecl Check!\n");
 	Symbol *declaration = new Symbol(this->id->GetName(), this, E_FunctionDecl);
-	symtable->insert(*declaration);
+	int error = symtable->insert(*declaration);
+    if(error == 1) {
+		Symbol *oldDecl = symtable->find(this->id->GetName());
+		symtable->remove(*oldDecl);
+		ReportError::DeclConflict(this, oldDecl->decl);
+		symtable->insert(*declaration);
+	}
 }
          
 Decl::Decl(Identifier *n) : Node(*n->GetLocation()) {
