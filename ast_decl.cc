@@ -34,16 +34,14 @@ void VarDecl::Check(){
 
 			// checks for type error
 		VarDecl * v = dynamic_cast<VarDecl*>(this);
-		Type * vtype = v->assignTo->getType();
-		if( vtype != NULL ) {
-			char* type_assign = v->assignTo->getType()->GetTypeName();
-			
-			if( !strcmp (this->type->GetTypeName(), type_assign) ) {
-				cout << "SAME TYPE\n" ;
-			} else {
-				cout << "expression type: " << type_assign << "\n" ;
-				cout << "this type: " << this->type->GetTypeName() << "\n" ;
-				ReportError::InvalidInitialization(this->id, this->type, v->assignTo->getType());
+
+		bool *typeFlag= new bool;
+		*typeFlag = false;
+
+		Type * vtype = v->assignTo->getType(typeFlag);
+		if( *typeFlag == false ) {
+			if( strcmp (this->type->GetTypeName(), vtype->GetTypeName()) ) {
+				ReportError::InvalidInitialization(this->id, this->type, vtype);
 			}
 		}
 	

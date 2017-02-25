@@ -135,19 +135,18 @@ void Call::PrintChildren(int indentLevel) {
 
 
 /****************************************************************/
-Type* ArithmeticExpr::getType() {
+Type* ArithmeticExpr::getType(bool *typeError) {
 	
-	Type* ltype = left->getType();
-	Type* rtype = right->getType();
-	if( ltype != NULL && rtype != NULL ) {
+	Type* ltype = left->getType(typeError);
+	Type* rtype = right->getType(typeError);
 
-		if( !strcmp(ltype->GetTypeName(), rtype->GetTypeName()) ) {
-			return left->getType();
-		} else {
-			ReportError::IncompatibleOperands(op, left->getType(), right->getType());
-			return NULL;
-		}
+
+	if( strcmp(ltype->GetTypeName(), rtype->GetTypeName()) ) {
+		if(*typeError == false)
+			ReportError::IncompatibleOperands(op, ltype, rtype);
+		*typeError = true;
 	}
-	return NULL;
+	
+	return ltype;
 }
 
