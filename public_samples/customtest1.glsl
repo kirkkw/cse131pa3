@@ -14,4 +14,5 @@ int x();
 bool b = 6;
 int y = 5.0;
 */
+int z;
 int z = (5.0 + (true+4));
