@@ -157,20 +157,35 @@ Type* CompoundExpr::getType(bool *typeError){
 		Type* rtype = right->getType(typeError);
 		return rtype;
 	}
-	return NULL;
+	cout << "should never get here";
+	return Type::errorType;
 }
 
 Type* ArithmeticExpr::getType(bool *typeError){
 	if( op->IsOp("&&") || op->IsOp("||") ){
 		Type* ltype = left->getType(typeError);
 		Type* rtype = right->getType(typeError);
-		
-		if( ltype->IsEquivalentTo(Type::boolType)==false ||
-			rtype->IsEquivalentTo(Type::boolType)==false ){
+
+		if( strcmp(ltype->GetTypeName(),"bool") !=0  ||
+			strcmp(rtype->GetTypeName(),"bool") !=0 ){
+
 			if(*typeError == false)
 				ReportError::IncompatibleOperands(op, ltype, rtype);
 			*typeError = true;
 		}
+		return Type::boolType;
+	}
+
+	if( op->IsOp("==") || op->IsOp("!=") ){
+		Type* ltype = left->getType(typeError);
+		Type* rtype = right->getType(typeError);
+
+		if( strcmp(ltype->GetTypeName(), rtype->GetTypeName()) ) {
+			if(*typeError == false)
+				ReportError::IncompatibleOperands(op, ltype, rtype);
+			*typeError = true;
+		}
+		return Type::boolType;
 	}
 
 	return super::getType(typeError);
