@@ -57,23 +57,30 @@ void FnDecl::Check() {
 	bool *typeFlag = new bool;
 	*typeFlag = false;
 	
-	
+  // check return types	
 	if( f->body != NULL ) {
 		Type* fReturnType = f->returnType;
 
-		//Type* voidType = new Type("void");
-		// nothing happens if return type is void
-		//if( *typeFlag == false && 
-		//	strcmp( fReturnType->GetTypeName(), voidType->GetTypeName() )) {
-
-		//	cout << "return type isn't void\n" << flush;
-			returnTypes->push(fReturnType);
-		//}
+		Type* voidType = new Type("void");
+		if( !strcmp( fReturnType->GetTypeName(), voidType->GetTypeName() )) {
+      foundReturn->push(true);
+    } else {
+      foundReturn->push(false);
+    }
+		returnTypes->push(fReturnType);
 	}
 
 	f->body->Check();
+  
+  // check if return statement is found or not
+  if( foundReturn->size() > 0 ) {
+		bool found = foundReturn->top();
+		if( !found ) {
+			ReportError::ReturnMissing(this);
+		}
+	}
 
-	
+
 	
 	
 }

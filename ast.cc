@@ -12,6 +12,7 @@
 // Global Variables
 SymbolTable *Node::symtable = new SymbolTable();
 std::stack<Type*>* Node::returnTypes = new std::stack<Type*>();
+std::stack<bool>* Node::foundReturn = new std::stack<bool>();
 
 Node::Node(yyltype loc) {
     location = new yyltype(loc);

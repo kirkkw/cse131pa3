@@ -58,6 +58,7 @@ class Node  {
   public:
     static SymbolTable *symtable;
     static stack<Type*> *returnTypes;
+    static stack<bool> *foundReturn;
     Node(yyltype loc);
     Node();
     virtual ~Node() {}
