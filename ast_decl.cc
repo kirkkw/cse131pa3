@@ -8,42 +8,30 @@
 #include "symtable.h"        
 
 void VarDecl::Check(){
-	Symbol *declaration = new Symbol(this->id->GetName(), this, E_VarDecl);
-
-	//here check for any errors thrown by insert
-	cout << "hello this is cout";
-	printf( "hello this is printf" );
-	cout << flush;
-	Symbol *oldDecl = symtable->find(this->id->GetName());
-	VarDecl * v = dynamic_cast<VarDecl*>(this);
-	if( v == NULL ) cout << "v is null";
-	else {	
-		//cout << "getting expr";
-		Expr * ex =  v->assignTo;
-		cout << "getting expression" ;
-		cout << flush;
-		//cout << "getting the type";
-		if(ex == NULL ) "ex is null";
-		else { cout << ex->getType()->GetTypeName(); cout << "finished" ; }
-	}
-
-	int error = symtable->insert(*declaration);
+	
 	// push this error upstream so we have logic for cascading errors
-	if(error == 1) {
+	printf("VarDecl Check!\n");
 
+	Symbol *declaration = new Symbol(this->id->GetName(), this, E_VarDecl);
+	int error = symtable->insert(*declaration);
+	// checks for errors thrown by insert
+	if(error == 1) {
+		Symbol *oldDecl = symtable->find(this->id->GetName());
 		symtable->remove(*oldDecl);
 		ReportError::DeclConflict(this, oldDecl->decl);
 		symtable->insert(*declaration);
 	}
+	
+	// get the type of var decl expression
+	VarDecl * v = dynamic_cast<VarDecl*>(this);
+	if( v == NULL ) cout << "v is null\n";
+	else {	
+		Expr * ex =  v->assignTo;
+		if(ex == NULL ) "ex is null\n";
+		else { cout << "Type: " << ex->getType()->GetTypeName() << "\n"; }
+	}
 
-	printf("VarDecl Check!\n");
-
-	/*	
-	VarDecl * v = dynamic_cast<VarDecl*>(declaration->decl);
-	if( v == NULL ) cout << "v is null";
-	else  v->assignTo->getType()->PrintToStream(cout);
-	*/
-	//checks type
+	
 }
 
 void FnDecl::Check() {
