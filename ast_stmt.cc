@@ -38,7 +38,7 @@ void Program::Check() {
          * Basically you have to make sure that each declaration is 
          * semantically correct.
          */
-	d->Check();
+		d->Check();
       }
     }
 
@@ -196,3 +196,46 @@ void SwitchStmt::PrintChildren(int indentLevel) {
     if (def) def->Print(indentLevel+1);
 }
 
+
+/************************************************************/
+void StmtBlock::Check() {
+	printf("StmtBlock Check!\n");
+	 
+	/** go through the list of var declarations **/
+	cout << "num of elems: " << stmts->NumElements() << "\n" ;
+	if(stmts->NumElements() > 0) {
+		for(int i=0; i < stmts->NumElements(); i++){
+			Stmt* stmt = stmts->Nth(i);
+			stmt->Check();
+		}
+	}
+}
+
+void Stmt::Check() {
+	this->Check();
+}
+
+void DeclStmt::Check() {
+	VarDecl * v = dynamic_cast<VarDecl*>(this->decl);
+	v->Check();
+}
+
+void ReturnStmt::Check() {
+	bool* typeError = new bool;
+	*typeError = false;
+	Type* rType = getType(typeError);
+	
+	if(*typeError == false){
+		if( returnTypes->size() > 0 ) {
+			Type* cmp = returnTypes->top();
+			if( strcmp( cmp->GetTypeName(), rType->GetTypeName() )) {
+				ReportError::ReturnMismatch(this, rType, cmp);
+			}
+		}
+		
+	}
+}
+
+Type* ReturnStmt::getType(bool * typeError){
+	return expr->getType(typeError);
+}

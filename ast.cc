@@ -9,7 +9,9 @@
 #include <string.h> // strdup
 #include <stdio.h>  // printf
 
+// Global Variables
 SymbolTable *Node::symtable = new SymbolTable();
+std::stack<Type*>* Node::returnTypes = new std::stack<Type*>();
 
 Node::Node(yyltype loc) {
     location = new yyltype(loc);

@@ -40,12 +40,14 @@
 #include <stdlib.h>   // for NULL
 #include "location.h"
 #include <iostream>
+#include <stack>
 
 using namespace std;
 
 class SymbolTable;
 class MyStack;
 class FnDecl;
+class Type;
 
 class Node  {
 
@@ -55,6 +57,7 @@ class Node  {
 
   public:
     static SymbolTable *symtable;
+    static stack<Type*> *returnTypes;
     Node(yyltype loc);
     Node();
     virtual ~Node() {}

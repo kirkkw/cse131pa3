@@ -15,6 +15,7 @@
 
 #include "list.h"
 #include "ast.h"
+#include "ast_type.h"
 
 class Decl;
 class VarDecl;
@@ -40,8 +41,10 @@ class Program : public Node
 class Stmt : public Node
 {
   public:
+     void Check();
      Stmt() : Node() {}
      Stmt(yyltype loc) : Node(loc) {}
+     virtual Type* getType(bool * typeError) { return new Type("int"); } // must change later
 };
 
 class StmtBlock : public Stmt 
@@ -54,6 +57,7 @@ class StmtBlock : public Stmt
     StmtBlock(List<VarDecl*> *variableDeclarations, List<Stmt*> *statements);
     const char *GetPrintNameForNode() { return "StmtBlock"; }
     void PrintChildren(int indentLevel);
+    void Check();
 };
 
 class DeclStmt: public Stmt 
@@ -65,6 +69,7 @@ class DeclStmt: public Stmt
     DeclStmt(Decl *d);
     const char *GetPrintNameForNode() { return "DeclStmt"; }
     void PrintChildren(int indentLevel);
+    void Check();
 
 };
   
@@ -153,7 +158,8 @@ class ReturnStmt : public Stmt
     ReturnStmt(yyltype loc, Expr *expr = NULL);
     const char *GetPrintNameForNode() { return "ReturnStmt"; }
     void PrintChildren(int indentLevel);
-
+    Type* getType(bool * typeError);
+    void Check();
 };
 
 class SwitchLabel : public Stmt

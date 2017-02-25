@@ -37,13 +37,12 @@ void VarDecl::Check(){
 			}
 		}
 	}
-
-
-	
 }
 
 void FnDecl::Check() {
     printf("FuncDecl Check!\n");
+
+	/**** Check for redeclaration errors *****/
 	Symbol *declaration = new Symbol(this->id->GetName(), this, E_FunctionDecl);
 	int error = symtable->insert(*declaration);
     if(error == 1) {
@@ -52,6 +51,31 @@ void FnDecl::Check() {
 		ReportError::DeclConflict(this, oldDecl->decl);
 		symtable->insert(*declaration);
 	}
+
+	/***** Check for type errors ****/
+	FnDecl *f = dynamic_cast<FnDecl*>(this);
+	bool *typeFlag = new bool;
+	*typeFlag = false;
+	
+	
+	if( f->body != NULL ) {
+		Type* fReturnType = f->returnType;
+
+		//Type* voidType = new Type("void");
+		// nothing happens if return type is void
+		//if( *typeFlag == false && 
+		//	strcmp( fReturnType->GetTypeName(), voidType->GetTypeName() )) {
+
+		//	cout << "return type isn't void\n" << flush;
+			returnTypes->push(fReturnType);
+		//}
+	}
+
+	f->body->Check();
+
+	
+	
+	
 }
          
 Decl::Decl(Identifier *n) : Node(*n->GetLocation()) {
