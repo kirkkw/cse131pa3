@@ -11,50 +11,33 @@ void VarDecl::Check(){
 	
 	// push this error upstream so we have logic for cascading errors
 	printf("VarDecl Check!\n");
-
+	
+	/**** Check for redeclaration errors *****/
 	Symbol *declaration = new Symbol(this->id->GetName(), this, E_VarDecl);
 	int error = symtable->insert(*declaration);
-	// checks for errors thrown by insert
 	if(error == 1) {
 		Symbol *oldDecl = symtable->find(this->id->GetName());
 		symtable->remove(*oldDecl);
 		ReportError::DeclConflict(this, oldDecl->decl);
-
-		/*
-		if( v == NULL ) cout << "v is null\n";
-		else {	
-			Expr * ex =  v->assignTo;
-			if(ex == NULL ) "ex is null\n";
-			else { cout << "Type: " << ex->getType()->GetTypeName() << "\n"; }
-		}
-		*/
-
 		symtable->insert(*declaration);
 	}
 
-			// checks for type error
-		VarDecl * v = dynamic_cast<VarDecl*>(this);
-
-		bool *typeFlag= new bool;
-		*typeFlag = false;
-
+	/**** Check for type errors ***************/
+	VarDecl * v = dynamic_cast<VarDecl*>(this);
+	
+	bool *typeFlag= new bool;
+	*typeFlag = false;
+	if( v->assignTo != NULL ) {
+	
 		Type * vtype = v->assignTo->getType(typeFlag);
+	
 		if( *typeFlag == false ) {
 			if( strcmp (this->type->GetTypeName(), vtype->GetTypeName()) ) {
 				ReportError::InvalidInitialization(this->id, this->type, vtype);
 			}
 		}
-	
-	/*
-	// get the type of var decl expression
-	VarDecl * v = dynamic_cast<VarDecl*>(this);
-	if( v == NULL ) cout << "v is null\n";
-	else {	
-		Expr * ex =  v->assignTo;
-		if(ex == NULL ) "ex is null\n";
-		else { cout << "Type: " << ex->getType()->GetTypeName() << "\n"; }
 	}
-	*/
+
 
 	
 }
