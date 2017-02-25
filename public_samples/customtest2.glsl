@@ -5,8 +5,10 @@
 int z = 5 || --5;
 bool y = true || true;
 bool f = false || 5;
-*/
 bool y = 5 == 6;
 bool z = 1 == 2.0;
 int f = false != false;
 bool g = true != 3;
+*/
+bool x;
+float y = x;

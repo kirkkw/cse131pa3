@@ -190,3 +190,20 @@ Type* ArithmeticExpr::getType(bool *typeError){
 
 	return super::getType(typeError);
 }
+
+Type* VarExpr::getType(bool *typeError){
+	Symbol *found = symtable->find(this->GetIdentifier()->GetName());
+
+	if(found == NULL){
+		if(*typeError == false)
+			ReportError::IdentifierNotDeclared(this->id,LookingForVariable);
+		*typeError = true;
+		return Type::errorType;
+	}
+
+	VarDecl *d = dynamic_cast<VarDecl*>(found->decl);
+	if( d != NULL )
+		return d->GetType();
+	else
+		return Type::errorType;
+}
