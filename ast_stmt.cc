@@ -39,7 +39,6 @@ void Program::Check() {
          * semantically correct.
          */
 	d->Check();
-	//printf("%zu\n", d->symtable->tables.size());
       }
     }
 

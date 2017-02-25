@@ -61,7 +61,6 @@ void ScopedTable::remove(Symbol &sym){
 
 Symbol* ScopedTable::find(const char *name){
 	if(symbols.find(name) !=  symbols.end()){
-		printf("return symbol");
     		return &symbols.find(name)->second;
 	}
 	else return NULL;
