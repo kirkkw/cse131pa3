@@ -135,18 +135,58 @@ void Call::PrintChildren(int indentLevel) {
 
 
 /****************************************************************/
-Type* ArithmeticExpr::getType(bool *typeError) {
+Type* CompoundExpr::getType(bool *typeError){
+	if(left != NULL && right != NULL){
+		Type* ltype = left->getType(typeError);
+		Type* rtype = right->getType(typeError);
 	
-	Type* ltype = left->getType(typeError);
-	Type* rtype = right->getType(typeError);
-
-
-	if( strcmp(ltype->GetTypeName(), rtype->GetTypeName()) ) {
-		if(*typeError == false)
-			ReportError::IncompatibleOperands(op, ltype, rtype);
-		*typeError = true;
+		if( strcmp(ltype->GetTypeName(), rtype->GetTypeName()) ) {
+			if(*typeError == false)
+				ReportError::IncompatibleOperands(op, ltype, rtype);
+			*typeError = true;
+		}
+		return ltype;
 	}
 	
-	return ltype;
+	if( left != NULL){
+		Type* ltype = left->getType(typeError);
+		return ltype;
+	}
+
+	if( right != NULL){
+		Type* rtype = right->getType(typeError);
+		return rtype;
+	}
+	cout << "should never get here";
+	return Type::errorType;
 }
 
+Type* ArithmeticExpr::getType(bool *typeError){
+	if( op->IsOp("&&") || op->IsOp("||") ){
+		Type* ltype = left->getType(typeError);
+		Type* rtype = right->getType(typeError);
+
+		if( strcmp(ltype->GetTypeName(),"bool") !=0  ||
+			strcmp(rtype->GetTypeName(),"bool") !=0 ){
+
+			if(*typeError == false)
+				ReportError::IncompatibleOperands(op, ltype, rtype);
+			*typeError = true;
+		}
+		return Type::boolType;
+	}
+
+	if( op->IsOp("==") || op->IsOp("!=") ){
+		Type* ltype = left->getType(typeError);
+		Type* rtype = right->getType(typeError);
+
+		if( strcmp(ltype->GetTypeName(), rtype->GetTypeName()) ) {
+			if(*typeError == false)
+				ReportError::IncompatibleOperands(op, ltype, rtype);
+			*typeError = true;
+		}
+		return Type::boolType;
+	}
+
+	return super::getType(typeError);
+}

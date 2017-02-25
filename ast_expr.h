@@ -32,7 +32,7 @@ class Expr : public Stmt
     
     virtual Type* getType(bool *typeFlag){
 
-      return new Type("int");
+      return new Type("int"); //TODO: change this???
     }
 
 };
@@ -125,10 +125,14 @@ class CompoundExpr : public Expr
     CompoundExpr(Operator *op, Expr *rhs);             // for unary
     CompoundExpr(Expr *lhs, Operator *op);             // for unary
     void PrintChildren(int indentLevel);
+    Type* getType(bool *typeFlag);
 };
 
 class ArithmeticExpr : public CompoundExpr 
 {
+  private:
+    typedef CompoundExpr super;
+
   public:
     ArithmeticExpr(Expr *lhs, Operator *op, Expr *rhs) : CompoundExpr(lhs,op,rhs) {}
     ArithmeticExpr(Operator *op, Expr *rhs) : CompoundExpr(op,rhs) {}
