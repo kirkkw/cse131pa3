@@ -8,24 +8,30 @@
 #include "symtable.h"        
 
 void VarDecl::Check(){
-	Symbol *declaration = new Symbol(this->id->GetName(), this, E_VarDecl);
-
-	//here check for any errors thrown by insert
-	//
-	Symbol *oldDecl = symtable->find(this->id->GetName());
-	int error = symtable->insert(*declaration);
+	
 	// push this error upstream so we have logic for cascading errors
-	if(error == 1) {
+	printf("VarDecl Check!\n");
 
+	Symbol *declaration = new Symbol(this->id->GetName(), this, E_VarDecl);
+	int error = symtable->insert(*declaration);
+	// checks for errors thrown by insert
+	if(error == 1) {
+		Symbol *oldDecl = symtable->find(this->id->GetName());
 		symtable->remove(*oldDecl);
 		ReportError::DeclConflict(this, oldDecl->decl);
 		symtable->insert(*declaration);
 	}
+	
+	// get the type of var decl expression
+	VarDecl * v = dynamic_cast<VarDecl*>(this);
+	if( v == NULL ) cout << "v is null\n";
+	else {	
+		Expr * ex =  v->assignTo;
+		if(ex == NULL ) "ex is null\n";
+		else { cout << "Type: " << ex->getType()->GetTypeName() << "\n"; }
+	}
 
-	//types???
-	this->type->PrintToStream(cout);
-
-	//printf("VarDecl Check!\n");
+	
 }
 
 void FnDecl::Check() {
