@@ -216,6 +216,7 @@ void Stmt::Check() {
 
 void DeclStmt::Check() {
 	VarDecl * v = dynamic_cast<VarDecl*>(this->decl);
+	cout << "checking x\n" << flush;
 	v->Check();
 }
 
@@ -233,8 +234,26 @@ void ReturnStmt::Check() {
 		}
 		
 	}
+
 }
 
 Type* ReturnStmt::getType(bool * typeError){
 	return expr->getType(typeError);
+}
+
+void IfStmt::Check() {
+
+	/** check the type for test **/
+	bool* typeError = new bool;
+	*typeError = false;
+	Type* ifType = test->getType(typeError);
+	if(*typeError == false) {
+		Type* boolType = new Type("bool");
+		if( strcmp( ifType->GetTypeName(), boolType->GetTypeName() )) {
+			ReportError::TestNotBoolean(test);
+		}
+	}
+	/** check the type for stmt body **/
+	if(body != NULL) body->Check();
+	if(elseBody != NULL) elseBody->Check();
 }
