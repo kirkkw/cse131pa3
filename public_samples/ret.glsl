@@ -23,3 +23,7 @@ void noReturn() {
 int returnCorrect() {
 	return 5;
 }
+
+float returnFloat() {
+	return returnCorrect();
+}

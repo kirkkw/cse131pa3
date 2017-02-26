@@ -36,7 +36,7 @@ void VarDecl::Check(){
 }
 
 void FnDecl::Check() {
-    printf("FuncDecl Check!\n");
+  printf("FuncDecl Check!\n");
 
 	bool *typeFlag = new bool;
 	*typeFlag = false;
@@ -51,7 +51,7 @@ void FnDecl::Check() {
 	
   	/**** Check return types	****/
 	if( f->body != NULL ) {
-		Type* fReturnType = f->returnType;
+		Type* fReturnType = f->GetType();
 
 		Type* voidType = new Type("void");
 		if( !strcmp( fReturnType->GetTypeName(), voidType->GetTypeName() )) {
@@ -73,10 +73,8 @@ void FnDecl::Check() {
 			ReportError::ReturnMissing(this);
 		}
 	}
-
-
-	
-	
+  
+  //returnTypes->pop();
 }
          
 Decl::Decl(Identifier *n) : Node(*n->GetLocation()) {

@@ -1,3 +1,4 @@
+/*
 int x;
 void main(){
     x();
@@ -12,4 +13,17 @@ void main(){
  
     }
  
+}
+*/
+int x;
+void cwmain() { 
+	x();
+}
+void main() { 
+	while(true) {
+		while(true){
+		break;
+		}
+		break;
+	}
 }

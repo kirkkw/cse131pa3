@@ -283,6 +283,7 @@ void ReturnStmt::Check() {
     if( expr != NULL ) {
     	Type* rType = getType(typeError);
       ReportError::ReturnMismatch(this, rType, Type::voidType);
+      *typeError = true;
      }
   }
 
@@ -349,6 +350,7 @@ void Default::Check() {
 
 
 void WhileStmt::Check(){
+  loops++;
 	/** check the test expr **/
 	bool* typeError = new bool;
 	*typeError = false;
@@ -362,6 +364,8 @@ void WhileStmt::Check(){
 
 	/** check on stmts in the body **/
 	if(body != NULL) body->Check();
+
+  loops--;
 }
 
 void LoopStmt::Check() {

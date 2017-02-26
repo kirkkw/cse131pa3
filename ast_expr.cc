@@ -265,7 +265,17 @@ Type* ArrayAccess::getType(bool *typeError){
 
 Type* Call::getType(bool *typeError){
   Symbol* func = symtable->find(field->GetName());
+
   if(func != NULL) {
+    /*** Check if it's a function ***/
+    if( func->kind != E_FunctionDecl ) {
+      ReportError::NotAFunction(field);
+      *typeError = true;
+      return Type::errorType;
+    }
+    
+
+    /*** Checking # of arguments ****/
     int expCount = func->someInfo;
     int actualCount = actuals->NumElements();
     if( expCount < actualCount ) {
@@ -277,6 +287,7 @@ Type* Call::getType(bool *typeError){
         ReportError::LessFormals(field, expCount, actualCount);
       *typeError = true;
     }
+    
     FnDecl *fnd = dynamic_cast<FnDecl*>(func->decl);
     return fnd->GetType();
   }
