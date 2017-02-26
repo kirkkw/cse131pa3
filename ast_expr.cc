@@ -208,17 +208,25 @@ Type* VarExpr::getType(bool *typeError){
 		return Type::errorType;
 }
 
+Type* RelationalExpr::getType(bool *typeError){
+	Type* ltype = left->getType(typeError);
+	Type* rtype = right->getType(typeError);
 
+	if( strcmp(ltype->GetTypeName(), rtype->GetTypeName())!=0 ) {
+		if(*typeError == false)
+			ReportError::IncompatibleOperands(op, ltype, rtype);
+		*typeError = true;
+	}
+	return Type::boolType;
+}
 
+Type* PostfixExpr::getType(bool *typeError){
+	Type* ltype = left->getType(typeError);
 
-
-
-
-
-
-
-
-
-
-
-
+	if( !ltype->IsNumeric() ) {
+		if(*typeError == false)
+			ReportError::IncompatibleOperand(op,ltype);
+		*typeError = true;
+	}
+	return ltype;
+}

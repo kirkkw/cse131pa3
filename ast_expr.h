@@ -31,9 +31,12 @@ class Expr : public Stmt
     }
     
     virtual Type* getType(bool *typeFlag){
-
       return Type::errorType;
     }
+    virtual void Check(){
+      bool *flag = new bool;
+      getType(flag);
+    };
 
 };
 
@@ -146,6 +149,7 @@ class RelationalExpr : public CompoundExpr
   public:
     RelationalExpr(Expr *lhs, Operator *op, Expr *rhs) : CompoundExpr(lhs,op,rhs) {}
     const char *GetPrintNameForNode() { return "RelationalExpr"; }
+    Type* getType(bool *typeFlag);
 };
 
 class EqualityExpr : public CompoundExpr 
@@ -175,6 +179,7 @@ class PostfixExpr : public CompoundExpr
   public:
     PostfixExpr(Expr *lhs, Operator *op) : CompoundExpr(lhs,op) {}
     const char *GetPrintNameForNode() { return "PostfixExpr"; }
+    Type* getType(bool *typeFlag);
 
 };
 
