@@ -194,11 +194,7 @@ Type* ArithmeticExpr::getType(bool *typeError){
 Type* VarExpr::getType(bool *typeError){
 	Symbol *found = symtable->find(this->GetIdentifier()->GetName());
 
-
-	cout<<"finding "<<flush;
-	cout<<this->GetIdentifier()->GetName()<<flush;
 	if(found == NULL){
-		cout<<"symbol not found"<<flush;
 		if(*typeError == false)
 			ReportError::IdentifierNotDeclared(this->id,LookingForVariable);
 		*typeError = true;
@@ -249,7 +245,6 @@ Type* ConditionalExpr::getType(bool *typeError){
 Type* ArrayAccess::getType(bool *typeError){
 	ArrayType* baseType = dynamic_cast<ArrayType*>(base->getType(typeError));
 
-	cout << "here" << flush;
 	if( baseType == NULL ){
 		VarExpr *v = dynamic_cast<VarExpr*>(base);
 		if( v != NULL ){
@@ -284,4 +279,94 @@ Type* Call::getType(bool *typeError){
   return Type::errorType;
   
 }
+Type* FieldAccess::swizzleLengthHelper(int swizLen, bool *typeFlag, Identifier *field, Expr *base){
+	switch(swizLen){
+		case 1:
+			return Type::floatType;
+			break;
+		case 2:
+			return Type::vec2Type;
+			break;
+		case 3:
+			return Type::vec3Type;
+			break;
+		case 4:
+			return Type::vec4Type;
+			break;
+		default:
+			if(*typeFlag == false)
+				ReportError::OversizedVector(field,base);
+			*typeFlag = true;
+			return Type::errorType;
+			break;
+	}
+}
 
+Type* FieldAccess::getType(bool *typeError){
+	Type* ltype;
+	if(base != NULL){
+		ltype = base->getType(typeError);
+		char *swizzle = field->GetName();
+		int swizLen = strlen(swizzle);
+
+		// 2 = vec2, 3 = vec3, 4 = vec4
+		int vNum = 0;
+		//check for invalid swizzles
+		for(int i=0;i<swizLen;i++){
+			switch(swizzle[i]){
+			case 'x':
+				vNum = vNum < 2 ? 2 : vNum;
+				break;
+			case 'y':
+				vNum = vNum < 2 ? 2 : vNum;
+				break;
+			case 'z':
+				vNum = vNum < 3 ? 3 : vNum;
+				break;
+			case 'w':
+				vNum = vNum < 4 ? 4 : vNum;
+				break;
+			default:
+				if(*typeError == false)
+					ReportError::InvalidSwizzle(field,base);
+				*typeError = true;
+				return Type::errorType;
+				break;
+			}
+		}
+
+		//vec2
+		if(strcmp(ltype->GetTypeName(),"vec2")==0){
+			if(vNum > 2 && *typeError == false){
+				ReportError::SwizzleOutOfBound(field,base);
+				*typeError = true;
+				return Type::errorType;
+			}
+			return swizzleLengthHelper(swizLen,typeError,field,base);
+		}
+		//vec3
+		if(strcmp(ltype->GetTypeName(),"vec3")==0){
+			if(vNum > 3 && *typeError == false){
+				ReportError::SwizzleOutOfBound(field,base);
+				*typeError = true;
+				return Type::errorType;
+			}
+			return swizzleLengthHelper(swizLen,typeError,field,base);
+		}
+		//vec4
+		if(strcmp(ltype->GetTypeName(),"vec4")==0){
+			if(vNum > 4 && *typeError == false){
+				ReportError::SwizzleOutOfBound(field,base);
+				*typeError = true;
+				return Type::errorType;
+			}
+			return swizzleLengthHelper(swizLen,typeError,field,base);
+		}
+		
+		if(*typeError == false)
+			ReportError::InaccessibleSwizzle(field,base);
+		*typeError = true;
+		return Type::errorType;
+	}
+	return Type::errorType;
+}

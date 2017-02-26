@@ -228,6 +228,10 @@ class FieldAccess : public LValue
     FieldAccess(Expr *base, Identifier *field); //ok to pass NULL base
     const char *GetPrintNameForNode() { return "FieldAccess"; }
     void PrintChildren(int indentLevel);
+    Type* getType(bool *typeFlag);
+
+  private:
+    Type* swizzleLengthHelper(int swizLen, bool *typeFlag, Identifier *field, Expr *base);
 };
 
 /* Like field access, call is used both for qualified base.field()
