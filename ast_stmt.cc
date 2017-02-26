@@ -257,3 +257,32 @@ void IfStmt::Check() {
 	if(body != NULL) body->Check();
 	if(elseBody != NULL) elseBody->Check();
 }
+
+void SwitchStmt::Check() {
+	
+	cout << "SwitchStmt Check!\n" << flush;
+	bool * typeFlag = new bool;
+	*typeFlag = false;
+	if(expr!=NULL) expr->getType(typeFlag);
+	if(cases->NumElements() > 0) {
+		for(int i=0; i < cases->NumElements(); i++){
+			Stmt* switchCase = cases->Nth(i);
+			switchCase->Check();
+		}
+	}
+
+}
+
+void Case::Check() {
+	cout << "Case Check!\n" << flush;
+	bool *typeFlag = new bool;
+	*typeFlag = false;
+	if( label != NULL ) label->getType(typeFlag);
+	if( stmt != NULL ) stmt->Check();
+}
+
+
+
+
+
+

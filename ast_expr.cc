@@ -207,3 +207,18 @@ Type* VarExpr::getType(bool *typeError){
 	else
 		return Type::errorType;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
