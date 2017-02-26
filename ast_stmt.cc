@@ -259,17 +259,18 @@ void DeclStmt::Check() {
 
 void ReturnStmt::Check() {
 	cout << "ReturnStmt Check!" << flush;
+  bool* typeError = new bool;
+	*typeError = false;
 
-	if( foundReturn->top() == false) { // skip if return type is void
+  
+	if( foundReturn->top() == false) { // if return type is NOT void
 		foundReturn->pop();
 		foundReturn->push(true); // found return statement
 
-		bool* typeError = new bool;
-		*typeError = false;
-		Type* rType = getType(typeError);
-
 		if(*typeError == false){
 			if( returnTypes->size() > 0 ) {
+	      Type* rType = getType(typeError);
+        
 				Type* cmp = returnTypes->top();
 				if( strcmp( cmp->GetTypeName(), rType->GetTypeName() )) {
 					ReportError::ReturnMismatch(this, rType, cmp);
@@ -278,7 +279,12 @@ void ReturnStmt::Check() {
 			}
 		
 		}
-	}
+	} else {
+    if( expr != NULL ) {
+    	Type* rType = getType(typeError);
+      ReportError::ReturnMismatch(this, rType, Type::voidType);
+     }
+  }
 
 }
 
