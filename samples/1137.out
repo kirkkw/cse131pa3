@@ -1,0 +1,6 @@
+
+*** Error line 1.
+int x = 10 + k;
+              ^
+*** No declaration found for variable 'k'
+

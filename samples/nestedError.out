@@ -1,0 +1,36 @@
+
+*** Error line 11.
+					        float x = (i == true) ? 
+                                                                    ^
+*** Incompatible operands: int == bool
+
+
+*** Error line 11.
+					        float x = (i == true) ? 
+                                                           ^^^^^^^^^
+*** Test expression must have boolean type
+
+
+*** Error line 12.
+						        x + i
+                                                          ^
+*** No declaration found for variable 'x'
+
+
+*** Error line 13.
+						        : v[p++].x;
+                                                             ^^
+*** No declaration found for variable 'p'
+
+
+*** Error line 15.
+					        switch(s){
+                                                        ^
+*** No declaration found for variable 's'
+
+
+*** Error line 17.
+						        default: return true;
+                                                                 ^^^^^^^^^^^^
+*** Incompatible return: bool given, void expected
+

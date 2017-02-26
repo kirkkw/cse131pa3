@@ -1,0 +1,48 @@
+
+*** Error line 3.
+	bool k;
+              ^
+*** Declaration of 'k' here conflicts with declaration on line 2
+
+
+*** Error line 5.
+		float k = k;
+                           ^
+*** Wrong initialization of identifier 'k': idType 'float' exprType 'bool'
+
+
+*** Error line 12.
+	vec4 y = v.wxyz;
+                   ^^^^
+*** VarExpr swizzle 'wxyz' exceeds its vector component
+
+
+*** Error line 17.
+	float q = v.abcedefghijklmopqrstuvwxyz;
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+*** VarExpr swizzle 'abcedefghijklmopqrstuvwxyz' is not proper subset of [xyzw]
+
+
+*** Error line 18.
+	v.xyxyz;
+          ^^^^^
+*** VarExpr swizzle 'xyxyz' exceeds its vector component
+
+
+*** Error line 21.
+    m.x;
+      ^
+*** VarExpr non-vector type can't have swizzle 'x'
+
+
+*** Error line 26.
+    f = m[1].z;
+             ^
+*** ArrayAccess swizzle 'z' exceeds its vector component
+
+
+*** Error line 29.
+    v = v.x;
+      ^
+*** Incompatible operands: vec2 = float
+

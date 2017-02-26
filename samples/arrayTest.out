@@ -1,0 +1,36 @@
+
+*** Error line 11.
+   fu(i, f);
+   ^^
+*** Formal type mismatch in function 'fu' at pos 1: expected 'int[]', given 'int'
+
+
+*** Error line 12.
+   fu(is, f);
+   ^^
+*** Formal type mismatch in function 'fu' at pos 2: expected 'float[]', given 'float'
+
+
+*** Error line 13.
+   fu(fs, is);
+   ^^
+*** Formal type mismatch in function 'fu' at pos 1: expected 'int[]', given 'float[]'
+
+
+*** Error line 15.
+   foo(is, fs);
+   ^^^
+*** Formal type mismatch in function 'foo' at pos 1: expected 'int', given 'int[]'
+
+
+*** Error line 16.
+   foo(i, fs);
+   ^^^
+*** Formal type mismatch in function 'foo' at pos 2: expected 'float', given 'float[]'
+
+
+*** Error line 17.
+   foo(f, i);
+   ^^^
+*** Formal type mismatch in function 'foo' at pos 1: expected 'int', given 'float'
+

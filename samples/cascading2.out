@@ -1,0 +1,24 @@
+
+*** Error line 6.
+  bool boolean = ((a++ || ++b) - f) * (v + v);
+                    ^^
+*** No declaration found for variable 'a'
+
+
+*** Error line 6.
+  bool boolean = ((a++ || ++b) - f) * (v + v);
+                             ^
+*** No declaration found for variable 'b'
+
+
+*** Error line 9.
+  m *=  (v + v) * (f - (c++ || ++d));
+                         ^^
+*** No declaration found for variable 'c'
+
+
+*** Error line 9.
+  m *=  (v + v) * (f - (c++ || ++d));
+                                  ^
+*** No declaration found for variable 'd'
+

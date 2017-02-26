@@ -1,0 +1,12 @@
+
+*** Error line 2.
+	return;
+              ^
+*** Incompatible return: void given, int expected
+
+
+*** Error line 9.
+	return 2;
+        ^^^^^^^^^
+*** Incompatible return: int given, void expected
+

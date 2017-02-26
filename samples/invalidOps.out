@@ -1,0 +1,72 @@
+
+*** Error line 9.
+  v2 *= m3;
+     ^^
+*** Incompatible operands: vec2 *= mat3
+
+
+*** Error line 10.
+  v2 *= v3;
+     ^^
+*** Incompatible operands: vec2 *= vec3
+
+
+*** Error line 11.
+  m4 *= v2 * m4;
+               ^
+*** Incompatible operands: vec2 * mat4
+
+
+*** Error line 12.
+  m4 *= v2; 
+     ^^
+*** Incompatible operands: mat4 *= vec2
+
+
+*** Error line 13.
+  m4 = m2;
+     ^
+*** Incompatible operands: mat4 = mat2
+
+
+*** Error line 14.
+  m4 *= m2;
+     ^^
+*** Incompatible operands: mat4 *= mat2
+
+
+*** Error line 15.
+  v2 = v3;
+     ^
+*** Incompatible operands: vec2 = vec3
+
+
+*** Error line 16.
+  v2 *= v3;
+     ^^
+*** Incompatible operands: vec2 *= vec3
+
+
+*** Error line 17.
+  m3 *= v2;
+     ^^
+*** Incompatible operands: mat3 *= vec2
+
+
+*** Error line 18.
+  m2 /= v2;
+     ^^
+*** Incompatible operands: mat2 /= vec2
+
+
+*** Error line 19.
+  v2 += m2;
+     ^^
+*** Incompatible operands: vec2 += mat2
+
+
+*** Error line 20.
+  m2 += v2;
+     ^^
+*** Incompatible operands: mat2 += vec2
+

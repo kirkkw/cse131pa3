@@ -1,0 +1,210 @@
+
+*** Error line 15.
+  ++b;
+     ^
+*** Incompatible operand: ++ bool
+
+
+*** Error line 16.
+  +b;
+    ^
+*** Incompatible operand: + bool
+
+
+*** Error line 17.
+  b++;
+   ^^
+*** Incompatible operand: ++ bool
+
+
+*** Error line 18.
+  b--;
+   ^^
+*** Incompatible operand: -- bool
+
+
+*** Error line 19.
+  -b;
+    ^
+*** Incompatible operand: - bool
+
+
+*** Error line 20.
+  --b;
+     ^
+*** Incompatible operand: -- bool
+
+
+*** Error line 24.
+  b = ( (true && 5) || (5 && 2.0) );
+                  ^
+*** Incompatible operands: bool && int
+
+
+*** Error line 24.
+  b = ( (true && 5) || (5 && 2.0) );
+                                ^
+*** Incompatible operands: int && float
+
+
+*** Error line 25.
+  b = ( (true || 5) && (v2 || 2) );
+                  ^
+*** Incompatible operands: bool || int
+
+
+*** Error line 25.
+  b = ( (true || 5) && (v2 || 2) );
+                               ^
+*** Incompatible operands: vec2 || int
+
+
+*** Error line 26.
+  b = ( (true && 0.5) || (0.5 && 2) );
+                    ^
+*** Incompatible operands: bool && float
+
+
+*** Error line 26.
+  b = ( (true && 0.5) || (0.5 && 2) );
+                                  ^
+*** Incompatible operands: float && int
+
+
+*** Error line 27.
+  b = ( (true || 0.5) && (0.5 || 2) );
+                    ^
+*** Incompatible operands: bool || float
+
+
+*** Error line 27.
+  b = ( (true || 0.5) && (0.5 || 2) );
+                                  ^
+*** Incompatible operands: float || int
+
+
+*** Error line 30.
+  b = b + i;
+           ^
+*** Incompatible operands: bool + int
+
+
+*** Error line 31.
+  b = b*i;
+         ^
+*** Incompatible operands: bool * int
+
+
+*** Error line 32.
+  b = b/i;
+         ^
+*** Incompatible operands: bool / int
+
+
+*** Error line 33.
+  b = b*i;
+         ^
+*** Incompatible operands: bool * int
+
+
+*** Error line 34.
+  b = i - b;
+           ^
+*** Incompatible operands: int - bool
+
+
+*** Error line 35.
+  b = b + f;
+           ^
+*** Incompatible operands: bool + float
+
+
+*** Error line 36.
+  b = b*f;
+         ^
+*** Incompatible operands: bool * float
+
+
+*** Error line 37.
+  b = b/f;
+         ^
+*** Incompatible operands: bool / float
+
+
+*** Error line 38.
+  b = b*f;
+         ^
+*** Incompatible operands: bool * float
+
+
+*** Error line 39.
+  b = f - b;
+           ^
+*** Incompatible operands: float - bool
+
+
+*** Error line 40.
+  b = b + v2;
+            ^
+*** Incompatible operands: bool + vec2
+
+
+*** Error line 41.
+  b = b*v2;
+          ^
+*** Incompatible operands: bool * vec2
+
+
+*** Error line 42.
+  b = b/v2;
+          ^
+*** Incompatible operands: bool / vec2
+
+
+*** Error line 43.
+  b = b*v2;
+          ^
+*** Incompatible operands: bool * vec2
+
+
+*** Error line 44.
+  b = v2 - b;
+            ^
+*** Incompatible operands: vec2 - bool
+
+
+*** Error line 49.
+  m2 + m3 + m4;
+          ^
+*** Incompatible operands: mat2 + mat3
+
+
+*** Error line 50.
+  m2 * m3 * m4;
+          ^
+*** Incompatible operands: mat2 * mat3
+
+
+*** Error line 52.
+  m2 = m4/m2;
+            ^
+*** Incompatible operands: mat4 / mat2
+
+
+*** Error line 53.
+  m2 = m2/v2;
+            ^
+*** Incompatible operands: mat2 / vec2
+
+
+*** Error line 54.
+  m2 = m2/b;
+           ^
+*** Incompatible operands: mat2 / bool
+
+
+*** Error line 55.
+  m2 = m2*b;
+           ^
+*** Incompatible operands: mat2 * bool
+

@@ -35,7 +35,7 @@ int SymbolTable::insert(Symbol &sym, bool *error){
 		tables.back()->insert(sym);
 		return 1;
 	}
-	// back returns the last element
+	// back returns the last/most current scope table
 	tables.back()->insert(sym);
 	return 0;
 }

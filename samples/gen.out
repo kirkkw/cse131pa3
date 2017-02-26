@@ -1,0 +1,72 @@
+
+*** Error line 1.
+int emptyMain(){
+              ^
+*** Declaration of 'emptyMain' on line 1 doesn't have a return
+
+
+*** Error line 10.
+  return 2;
+  ^^^^^^^^^
+*** Incompatible return: int given, vec2 expected
+
+
+*** Error line 15.
+  int integer = true;
+                    ^
+*** Wrong initialization of identifier 'integer': idType 'int' exprType 'bool'
+
+
+*** Error line 16.
+  bool boolean = 5;
+                  ^
+*** Wrong initialization of identifier 'boolean': idType 'bool' exprType 'int'
+
+
+*** Error line 19.
+	while(i != j || integer){
+                     ^^
+*** No declaration found for variable 'j'
+
+
+*** Error line 19.
+	while(i != j || integer){
+              ^^^^^^^^^^^^^^^^^
+*** Test expression must have boolean type
+
+
+*** Error line 33.
+        vec2 k;
+              ^
+*** Declaration of 'k' here conflicts with declaration on line 32
+
+
+*** Error line 34.
+        vec3 k = k.xyx;
+                      ^
+*** Declaration of 'k' here conflicts with declaration on line 33
+
+
+*** Error line 35.
+        vec4 k = k.wxyz;
+                       ^
+*** Declaration of 'k' here conflicts with declaration on line 34
+
+
+*** Error line 35.
+        vec4 k = k.wxyz;
+                   ^^^^
+*** VarExpr swizzle 'wxyz' exceeds its vector component
+
+
+*** Error line 36.
+        k = 5;
+          ^
+*** Incompatible operands: vec4 = int
+
+
+*** Error line 40.
+   return f();
+          ^
+*** No declaration found for function 'f'
+

@@ -203,13 +203,20 @@ void SwitchStmt::PrintChildren(int indentLevel) {
 void StmtBlock::Check() {
 	printf("StmtBlock Check!\n");
 	 
+	/** insert new scope **/
+	symtable->push();
+
 	/** go through the list of stmts declarations **/
+
 	if(stmts->NumElements() > 0) {
 		for(int i=0; i < stmts->NumElements(); i++){
 			Stmt* stmt = stmts->Nth(i);
 			stmt->Check();
 		}
 	}
+
+	/** remove current scope **/
+	symtable->pop();
 }
 
 void Stmt::Check() {
@@ -334,7 +341,8 @@ void ForStmt::Check(){
 }
 
 void BreakStmt::Check() {
-	/*** TODO: SCOPE CHECKING **/
+	/*** TODO: SCOPE CHECKING **/ 
+	/* break is only allowed inside a loop */
 	return;
 }
 
