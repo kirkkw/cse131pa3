@@ -278,6 +278,8 @@ void IfStmt::Check() {
 void SwitchStmt::Check() {
 	
 	cout << "SwitchStmt Check!\n" << flush;
+  switchStmt++;
+
 	bool * typeFlag = new bool;
 	*typeFlag = false;
 	//switch test
@@ -291,6 +293,7 @@ void SwitchStmt::Check() {
 	}
 	// default 
 	if(def != NULL) def->Check();
+  switchStmt--;
 
 }
 
@@ -341,6 +344,8 @@ void LoopStmt::Check() {
 }
 
 void ForStmt::Check(){
+  loops++;
+
 	if( init != NULL ) init->Check();
 	bool* typeError = new bool;
 	*typeError = false;
@@ -353,15 +358,23 @@ void ForStmt::Check(){
 	}
 	if( step != NULL ) step->Check();
 	if( body != NULL ) body->Check();
+  loops--;
 }
 
 void BreakStmt::Check() {
-	/*** TODO: SCOPE CHECKING **/ 
 	/* break is only allowed inside a loop */
+  
+  // report error if not in loop and switch
+  if( loops <= 0   && switchStmt <= 0 ) {
+    ReportError::BreakOutsideLoop(this);
+  }
 	return;
 }
 
 void ContinueStmt::Check() {
-	/*** TODO: SCOPE CHECKING **/
+  // report error if not in loop
+  if( loops <= 0 ) {
+    ReportError::ContinueOutsideLoop(this);
+  }
 	return;
 }
