@@ -306,3 +306,37 @@ void WhileStmt::Check(){
 	/** check on stmts in the body **/
 	if(body != NULL) body->Check();
 }
+
+void LoopStmt::Check() {
+	/** test must have boolean type **/
+	bool* typeError = new bool;
+	*typeError = false;
+	Type* testType = test->getType(typeError);
+	if(*typeError == false) {
+		if(strcmp(testType->GetTypeName(), Type::boolType->GetTypeName()) != 0 )
+			ReportError::TestNotBoolean(test);
+	}
+	if( body != NULL ) body->Check();
+}
+
+void ForStmt::Check(){
+	if( init != NULL ) init->Check();
+	bool* typeError = new bool;
+	*typeError = false;
+	Type* testType = test->getType(typeError);
+	if(*typeError == false) {
+		if(strcmp(testType->GetTypeName(), Type::boolType->GetTypeName()) != 0 )
+			ReportError::TestNotBoolean(test);
+	}
+	if( step != NULL ) step->Check();
+}
+
+void BreakStmt::Check() {
+	/*** TODO: SCOPE CHECKING **/
+	return;
+}
+
+void ContinueStmt::Check() {
+	/*** TODO: SCOPE CHECKING **/
+	return;
+}
