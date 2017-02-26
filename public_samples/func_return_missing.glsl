@@ -1,3 +1,4 @@
+
 // good
 void foo() {
 	int i;
@@ -18,4 +19,9 @@ bool baz() {
 // bad - missing return type
 int fubar() {
 	int i;
+}
+
+// bad - mismatch
+int fubar() {
+	return 5.0;
 }

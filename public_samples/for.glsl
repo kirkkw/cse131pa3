@@ -16,5 +16,4 @@ void scope() {
 	for(true; true; i++) {
 		y = 5;
 	}
-	/* comment 
 }

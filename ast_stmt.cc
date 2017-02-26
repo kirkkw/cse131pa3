@@ -219,37 +219,77 @@ void StmtBlock::Check() {
 	symtable->pop();
 }
 
+void StmtBlock::Check(List<VarDecl*> *formals) {
+  symtable->push();
+  bool *typeFlag = new bool;
+	*typeFlag = false;
+
+
+  // list of arguments
+  if( formals->NumElements() > 0 ) {
+    for( int i=0; i < formals->NumElements(); i++ ) {
+      VarDecl* var = formals->Nth(i);
+      Symbol * s = new Symbol(var->GetIdentifier()->GetName(), var, E_VarDecl);
+      int err = symtable->insert(*s, typeFlag);
+    }
+  }
+
+  /** go through the list of stmts declarations **/
+	if(stmts->NumElements() > 0) {
+		for(int i=0; i < stmts->NumElements(); i++){
+			Stmt* stmt = stmts->Nth(i);
+			stmt->Check();
+		}
+	}
+
+	/** remove current scope **/
+	symtable->pop();
+
+
+}
+
 void Stmt::Check() {
 	this->Check();
 }
 
 void DeclStmt::Check() {
 	VarDecl * v = dynamic_cast<VarDecl*>(this->decl);
-	cout << "checking x\n" << flush;
 	v->Check();
 }
 
 void ReturnStmt::Check() {
-
-  foundReturn->pop(); // found a return statement
-	bool* typeError = new bool;
+	cout << "ReturnStmt Check!" << flush;
+  bool* typeError = new bool;
 	*typeError = false;
-	Type* rType = getType(typeError);
-	
-	if(*typeError == false){
-		if( returnTypes->size() > 0 ) {
-			Type* cmp = returnTypes->top();
-			if( strcmp( cmp->GetTypeName(), rType->GetTypeName() )) {
-				ReportError::ReturnMismatch(this, rType, cmp);
+
+  
+	if( foundReturn->top() == false) { // if return type is NOT void
+		foundReturn->pop();
+		foundReturn->push(true); // found return statement
+
+		if(*typeError == false){
+			if( returnTypes->size() > 0 ) {
+	      Type* rType = getType(typeError);
+        
+				Type* cmp = returnTypes->top();
+				if( strcmp( cmp->GetTypeName(), rType->GetTypeName() )) {
+					ReportError::ReturnMismatch(this, rType, cmp);
+					*typeError = true;
+				}
 			}
-		}
 		
-	}
+		}
+	} else {
+    if( expr != NULL ) {
+    	Type* rType = getType(typeError);
+      ReportError::ReturnMismatch(this, rType, Type::voidType);
+     }
+  }
 
 }
 
 Type* ReturnStmt::getType(bool * typeError){
-	return expr->getType(typeError);
+	return expr->getType(typeError) ;
 }
 
 void IfStmt::Check() {
@@ -273,6 +313,8 @@ void IfStmt::Check() {
 void SwitchStmt::Check() {
 	
 	cout << "SwitchStmt Check!\n" << flush;
+  switchStmt++;
+
 	bool * typeFlag = new bool;
 	*typeFlag = false;
 	//switch test
@@ -286,6 +328,7 @@ void SwitchStmt::Check() {
 	}
 	// default 
 	if(def != NULL) def->Check();
+  switchStmt--;
 
 }
 
@@ -336,6 +379,8 @@ void LoopStmt::Check() {
 }
 
 void ForStmt::Check(){
+  loops++;
+
 	if( init != NULL ) init->Check();
 	bool* typeError = new bool;
 	*typeError = false;
@@ -348,15 +393,23 @@ void ForStmt::Check(){
 	}
 	if( step != NULL ) step->Check();
 	if( body != NULL ) body->Check();
+  loops--;
 }
 
 void BreakStmt::Check() {
-	/*** TODO: SCOPE CHECKING **/ 
 	/* break is only allowed inside a loop */
+  
+  // report error if not in loop and switch
+  if( loops <= 0   && switchStmt <= 0 ) {
+    ReportError::BreakOutsideLoop(this);
+  }
 	return;
 }
 
 void ContinueStmt::Check() {
-	/*** TODO: SCOPE CHECKING **/
+  // report error if not in loop
+  if( loops <= 0 ) {
+    ReportError::ContinueOutsideLoop(this);
+  }
 	return;
 }
