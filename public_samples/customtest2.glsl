@@ -10,24 +10,12 @@ bool z = 1 == 2.0;
 int f = false != false;
 bool g = true != 3;
 bool x;
-float y = x;
-void main(){
-	float x;
-	x = 5;
-	false++;
-}
-
-void main(){
-	while(1.0){
-		while(1.0+5){}	
-	}
-}
-void main(){
-	vec3 x;
-	bool y = (5 < 3) + 5 ? 5 : 5;
-}
+int x;
 */
+int x;
 void main(){
-	int x;
-	int x;
+	int i;
+	for(true;true;i++){
+		y = 5;
+	}
 }
