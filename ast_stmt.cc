@@ -228,6 +228,8 @@ void DeclStmt::Check() {
 }
 
 void ReturnStmt::Check() {
+
+  foundReturn->pop(); // found a return statement
 	bool* typeError = new bool;
 	*typeError = false;
 	Type* rType = getType(typeError);

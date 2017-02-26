@@ -45,7 +45,8 @@ void FnDecl::Check() {
     printf("FuncDecl Check!\n");
 
 	/**** Check for redeclaration errors *****/
-	Symbol *declaration = new Symbol(this->id->GetName(), this, E_FunctionDecl);
+	Symbol *declaration = new Symbol(this->id->GetName(), this,
+							E_FunctionDecl, formals->NumElements());
 	int error = symtable->insert(*declaration);
     if(error == 1) {
 		Symbol *oldDecl = symtable->find(this->id->GetName());
@@ -54,12 +55,13 @@ void FnDecl::Check() {
 		symtable->insert(*declaration);
 	}
 
-	/***** Check for type errors ****/
+
+	/***** Check for type errors ********************************/
 	FnDecl *f = dynamic_cast<FnDecl*>(this);
 	bool *typeFlag = new bool;
 	*typeFlag = false;
 	
-  // check return types	
+  	/**** Check return types	****/
 	if( f->body != NULL ) {
 		Type* fReturnType = f->returnType;
 
@@ -74,8 +76,8 @@ void FnDecl::Check() {
 
 	f->body->Check();
   
-  // check if return statement is found or not
-  if( foundReturn->size() > 0 ) {
+  /*** Check if return statement is found or not ****/
+  	if( foundReturn->size() > 0 ) {
 		bool found = foundReturn->top();
 		if( !found ) {
 			ReportError::ReturnMissing(this);

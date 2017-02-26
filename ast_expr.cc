@@ -259,3 +259,20 @@ Type* ArrayAccess::getType(bool *typeError){
 
 	return baseType->GetElemType();
 }
+
+Type* Call::getType(bool *typeError){
+  Symbol* func = symtable->find(field->GetName());
+  if(func != NULL) {
+    int expCount = func->someInfo;
+    int actualCount = actuals->NumElements();
+    if( expCount < actualCount ) {
+      ReportError::ExtraFormals(field, expCount, actualCount);
+    } else if ( expCount  > actualCount ) {
+      ReportError::LessFormals(field, expCount, actualCount);
+    }
+    return func->decl->GetType();
+  }
+
+  return Type::errorType;
+  
+}
