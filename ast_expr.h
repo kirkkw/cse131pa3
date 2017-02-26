@@ -33,7 +33,7 @@ class Expr : public Stmt
     virtual Type* getType(bool *typeFlag){
       return Type::errorType;
     }
-    void Check(){
+    virtual void Check(){
       bool *flag = new bool;
       getType(flag);
     };
