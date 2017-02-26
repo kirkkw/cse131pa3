@@ -28,38 +28,25 @@ void VarDecl::Check(){
 		}
 	}
 
-	/**** Check for redeclaration errors *****/
+	/**** check for redeclaration error *******/
 	Symbol *declaration = new Symbol(this->id->GetName(), this, E_VarDecl);
-	int error = symtable->insert(*declaration);
-	if(error == 1) {
-		Symbol *oldDecl = symtable->find(this->id->GetName());
-		symtable->remove(*oldDecl);
-		if(*typeFlag == false)
-			ReportError::DeclConflict(this, oldDecl->decl);
-		symtable->insert(*declaration);
-		*typeFlag = true;
-	}
+	int error = symtable->insert(*declaration, typeFlag);
+
 }
 
 void FnDecl::Check() {
     printf("FuncDecl Check!\n");
 
+	bool *typeFlag = new bool;
+	*typeFlag = false;
+
 	/**** Check for redeclaration errors *****/
-	Symbol *declaration = new Symbol(this->id->GetName(), this,
-							E_FunctionDecl, formals->NumElements());
-	int error = symtable->insert(*declaration);
-    if(error == 1) {
-		Symbol *oldDecl = symtable->find(this->id->GetName());
-		symtable->remove(*oldDecl);
-		ReportError::DeclConflict(this, oldDecl->decl);
-		symtable->insert(*declaration);
-	}
+	Symbol *declaration = new Symbol(this->id->GetName(), this, E_FunctionDecl);
+	int error = symtable->insert(*declaration, typeFlag);
 
 
 	/***** Check for type errors ********************************/
 	FnDecl *f = dynamic_cast<FnDecl*>(this);
-	bool *typeFlag = new bool;
-	*typeFlag = false;
 	
   	/**** Check return types	****/
 	if( f->body != NULL ) {

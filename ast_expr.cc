@@ -266,11 +266,16 @@ Type* Call::getType(bool *typeError){
     int expCount = func->someInfo;
     int actualCount = actuals->NumElements();
     if( expCount < actualCount ) {
-      ReportError::ExtraFormals(field, expCount, actualCount);
+      if(*typeError == false)
+        ReportError::ExtraFormals(field, expCount, actualCount);
+      *typeError = true;
     } else if ( expCount  > actualCount ) {
-      ReportError::LessFormals(field, expCount, actualCount);
+      if(*typeError == false)
+        ReportError::LessFormals(field, expCount, actualCount);
+      *typeError = true;
     }
-    return func->decl->GetType();
+    FnDecl *fnd = dynamic_cast<FnDecl*>(func->decl);
+    return fnd->GetType();
   }
 
   return Type::errorType;

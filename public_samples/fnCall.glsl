@@ -5,9 +5,9 @@ int foo()
 }
 
 
-int main()
+float main()
 {
   int x = foo();
-  return foo(1);
+  return foo();
 }
 

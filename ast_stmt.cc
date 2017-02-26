@@ -48,6 +48,7 @@ void Program::Check() {
 
 void Program::testSymTables() {
 	printf("=============== symbol table testing ================\n");
+	bool *flag = new bool; *flag = false;
 
 	SymbolTable *testTable = new SymbolTable();
 	testTable->push(); //push first scopetable
@@ -61,7 +62,7 @@ void Program::testSymTables() {
 	printf("%zu\n", testTable->tables.size());
 
 	Symbol *SymbolX = new Symbol((char *)"x", NULL, E_VarDecl, 0);
-	testTable->insert(*SymbolX);
+	testTable->insert(*SymbolX,flag);
 	printf("Inserted Symbol x\n");
 
 	Symbol *findX = testTable->find((char *)"x");
@@ -71,15 +72,16 @@ void Program::testSymTables() {
 		printf("Could not find Symbol x\n");
 
 	printf("adding duplicate X, there should be an error: \n");
-	testTable->insert(*SymbolX);
+	testTable->insert(*SymbolX,flag);
 
-	printf("opening new scope and adding X\n");
+	printf("opening new scope and finding X\n");
 	testTable->push();
-	testTable->insert(*SymbolX);
-	if( findX != NULL )
+	Symbol *findX2 = testTable->find((char *)"x");
+	if( findX2 != NULL )
 		printf("Found Symbol x\n");
 	else
 		printf("Could not find Symbol x\n");
+
 
 	printf("closing scope. The previous X should still exist\n");
 	testTable->remove(*SymbolX);
