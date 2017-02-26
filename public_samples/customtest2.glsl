@@ -9,6 +9,11 @@ bool y = 5 == 6;
 bool z = 1 == 2.0;
 int f = false != false;
 bool g = true != 3;
-*/
 bool x;
 float y = x;
+*/
+void main(){
+	while(1.0){
+		while(1.0){}	
+	}
+}

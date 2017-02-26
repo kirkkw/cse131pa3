@@ -257,3 +257,17 @@ void IfStmt::Check() {
 	if(body != NULL) body->Check();
 	if(elseBody != NULL) elseBody->Check();
 }
+
+void WhileStmt::Check(){
+	/** check the test expr **/
+	bool* typeError = new bool;
+	*typeError = false;
+	Type* whileType = test->getType(typeError);
+	if(*typeError == false){
+		if(strcmp(whileType->GetTypeName(),Type::boolType->GetTypeName()) != 0 )
+			ReportError::TestNotBoolean(test);
+	}
+
+	/** check on stmts in the body **/
+	if(body != NULL) body->Check();
+}
