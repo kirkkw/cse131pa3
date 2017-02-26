@@ -16,10 +16,14 @@ void main(){
 	x = 5;
 	false++;
 }
-*/
 
 void main(){
 	while(1.0){
 		while(1.0+5){}	
 	}
+}
+*/
+void main(){
+	vec3 x;
+	bool y = (5 < 3) + 5 ? 5 : 5;
 }

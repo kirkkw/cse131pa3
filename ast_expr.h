@@ -35,6 +35,7 @@ class Expr : public Stmt
     }
     virtual void Check(){
       bool *flag = new bool;
+      *flag = false;
       getType(flag);
     };
 
@@ -191,6 +192,7 @@ class ConditionalExpr : public Expr
     ConditionalExpr(Expr *c, Expr *t, Expr *f);
     void PrintChildren(int indentLevel);
     const char *GetPrintNameForNode() { return "ConditionalExpr"; }
+    Type* getType(bool *typeFlag);
 };
 
 class LValue : public Expr 
@@ -208,6 +210,7 @@ class ArrayAccess : public LValue
     ArrayAccess(yyltype loc, Expr *base, Expr *subscript);
     const char *GetPrintNameForNode() { return "ArrayAccess"; }
     void PrintChildren(int indentLevel);
+    Type* getType(bool *typeFlag);
 };
 
 /* Note that field access is used both for qualified names

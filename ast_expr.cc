@@ -194,6 +194,7 @@ Type* ArithmeticExpr::getType(bool *typeError){
 Type* VarExpr::getType(bool *typeError){
 	Symbol *found = symtable->find(this->GetIdentifier()->GetName());
 
+
 	if(found == NULL){
 		if(*typeError == false)
 			ReportError::IdentifierNotDeclared(this->id,LookingForVariable);
@@ -202,8 +203,10 @@ Type* VarExpr::getType(bool *typeError){
 	}
 
 	VarDecl *d = dynamic_cast<VarDecl*>(found->decl);
-	if( d != NULL )
-		return d->GetType();
+	if( d != NULL ){
+		Type* t = d->GetType();
+		return t;
+	}
 	else
 		return Type::errorType;
 }
@@ -229,4 +232,30 @@ Type* PostfixExpr::getType(bool *typeError){
 		*typeError = true;
 	}
 	return ltype;
+}
+
+Type* ConditionalExpr::getType(bool *typeError){
+	Type* condType = cond->getType(typeError);
+	Type* trueType = trueExpr->getType(typeError);
+	Type* falseType = falseExpr->getType(typeError);
+
+	/** not tested so return whatever is fine **/
+	return trueType;
+}
+
+Type* ArrayAccess::getType(bool *typeError){
+	ArrayType* baseType = dynamic_cast<ArrayType*>(base->getType(typeError));
+
+	cout << "here" << flush;
+	if( baseType == NULL ){
+		VarExpr *v = dynamic_cast<VarExpr*>(base);
+		if( v != NULL ){
+			if( *typeError == false )
+				ReportError::NotAnArray(v->GetIdentifier());
+			*typeError = true;
+		}
+		return Type::errorType;
+	}
+
+	return baseType->GetElemType();
 }
