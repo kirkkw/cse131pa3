@@ -316,8 +316,10 @@ void WhileStmt::Check(){
 	*typeError = false;
 	Type* whileType = test->getType(typeError);
 	if(*typeError == false){
-		if(strcmp(whileType->GetTypeName(),Type::boolType->GetTypeName()) != 0 )
+		if(strcmp(whileType->GetTypeName(),Type::boolType->GetTypeName()) != 0 ){
 			ReportError::TestNotBoolean(test);
+			*typeError = true;
+		}
 	}
 
 	/** check on stmts in the body **/
@@ -330,8 +332,10 @@ void LoopStmt::Check() {
 	*typeError = false;
 	Type* testType = test->getType(typeError);
 	if(*typeError == false) {
-		if(strcmp(testType->GetTypeName(), Type::boolType->GetTypeName()) != 0 )
+		if(strcmp(testType->GetTypeName(), Type::boolType->GetTypeName()) != 0 ){
 			ReportError::TestNotBoolean(test);
+			*typeError = true;
+		}
 	}
 	if( body != NULL ) body->Check();
 }
@@ -342,10 +346,13 @@ void ForStmt::Check(){
 	*typeError = false;
 	Type* testType = test->getType(typeError);
 	if(*typeError == false) {
-		if(strcmp(testType->GetTypeName(), Type::boolType->GetTypeName()) != 0 )
+		if(strcmp(testType->GetTypeName(), Type::boolType->GetTypeName()) != 0 ){
 			ReportError::TestNotBoolean(test);
+			*typeError = true;
+		}
 	}
 	if( step != NULL ) step->Check();
+	if( body != NULL ) body->Check();
 }
 
 void BreakStmt::Check() {

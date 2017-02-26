@@ -195,7 +195,10 @@ Type* VarExpr::getType(bool *typeError){
 	Symbol *found = symtable->find(this->GetIdentifier()->GetName());
 
 
+	cout<<"finding "<<flush;
+	cout<<this->GetIdentifier()->GetName()<<flush;
 	if(found == NULL){
+		cout<<"symbol not found"<<flush;
 		if(*typeError == false)
 			ReportError::IdentifierNotDeclared(this->id,LookingForVariable);
 		*typeError = true;
@@ -281,3 +284,4 @@ Type* Call::getType(bool *typeError){
   return Type::errorType;
   
 }
+
