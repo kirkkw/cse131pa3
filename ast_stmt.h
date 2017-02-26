@@ -58,6 +58,7 @@ class StmtBlock : public Stmt
     const char *GetPrintNameForNode() { return "StmtBlock"; }
     void PrintChildren(int indentLevel);
     void Check();
+    void Check(List<VarDecl*> *formals);
 };
 
 class DeclStmt: public Stmt 

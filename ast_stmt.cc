@@ -219,6 +219,35 @@ void StmtBlock::Check() {
 	symtable->pop();
 }
 
+void StmtBlock::Check(List<VarDecl*> *formals) {
+  symtable->push();
+  bool *typeFlag = new bool;
+	*typeFlag = false;
+
+
+  // list of arguments
+  if( formals->NumElements() > 0 ) {
+    for( int i=0; i < formals->NumElements(); i++ ) {
+      VarDecl* var = formals->Nth(i);
+      Symbol * s = new Symbol(var->GetIdentifier()->GetName(), var, E_VarDecl);
+      int err = symtable->insert(*s, typeFlag);
+    }
+  }
+
+  /** go through the list of stmts declarations **/
+	if(stmts->NumElements() > 0) {
+		for(int i=0; i < stmts->NumElements(); i++){
+			Stmt* stmt = stmts->Nth(i);
+			stmt->Check();
+		}
+	}
+
+	/** remove current scope **/
+	symtable->pop();
+
+
+}
+
 void Stmt::Check() {
 	this->Check();
 }

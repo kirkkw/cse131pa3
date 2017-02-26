@@ -12,7 +12,8 @@ void VarDecl::Check(){
 	// push this error upstream so we have logic for cascading errors
 	printf("VarDecl Check!\n");
 	
-	bool *typeFlag= new bool; *typeFlag = false;
+	bool *typeFlag= new bool; 
+  *typeFlag = false;
 
 	/**** Check for type errors ***************/
 	VarDecl * v = dynamic_cast<VarDecl*>(this);
@@ -41,9 +42,9 @@ void FnDecl::Check() {
 	*typeFlag = false;
 
 	/**** Check for redeclaration errors *****/
+  // function name
 	Symbol *declaration = new Symbol(this->id->GetName(), this, E_FunctionDecl);
 	int error = symtable->insert(*declaration, typeFlag);
-
 
 	/***** Check for type errors ********************************/
 	FnDecl *f = dynamic_cast<FnDecl*>(this);
@@ -61,7 +62,8 @@ void FnDecl::Check() {
 		returnTypes->push(fReturnType);
 	}
 
-	f->body->Check();
+  StmtBlock * sb = dynamic_cast<StmtBlock*>(f->body);
+  sb->Check(formals);
   
   	/*** Check if return statement is found or not ****/
   	if( foundReturn->size() > 0 ) {
