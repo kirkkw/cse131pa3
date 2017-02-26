@@ -12,31 +12,32 @@ void VarDecl::Check(){
 	// push this error upstream so we have logic for cascading errors
 	printf("VarDecl Check!\n");
 	
+	bool *typeFlag= new bool; *typeFlag = false;
+
+	/**** Check for type errors ***************/
+	VarDecl * v = dynamic_cast<VarDecl*>(this);
+	
+	if( v->assignTo != NULL ) {
+	
+		Type * vtype = v->assignTo->getType(typeFlag);
+	
+		if( strcmp (this->type->GetTypeName(), vtype->GetTypeName()) ) {
+			if(*typeFlag == false)
+				ReportError::InvalidInitialization(this->id, this->type, vtype);
+			*typeFlag = true;
+		}
+	}
+
 	/**** Check for redeclaration errors *****/
 	Symbol *declaration = new Symbol(this->id->GetName(), this, E_VarDecl);
 	int error = symtable->insert(*declaration);
 	if(error == 1) {
 		Symbol *oldDecl = symtable->find(this->id->GetName());
 		symtable->remove(*oldDecl);
-		ReportError::DeclConflict(this, oldDecl->decl);
+		if(*typeFlag == false)
+			ReportError::DeclConflict(this, oldDecl->decl);
 		symtable->insert(*declaration);
-		cout << "decl error!!"<<flush;
-	}
-
-	/**** Check for type errors ***************/
-	VarDecl * v = dynamic_cast<VarDecl*>(this);
-	
-	bool *typeFlag= new bool;
-	*typeFlag = false;
-	if( v->assignTo != NULL ) {
-	
-		Type * vtype = v->assignTo->getType(typeFlag);
-	
-		if( *typeFlag == false ) {
-			if( strcmp (this->type->GetTypeName(), vtype->GetTypeName()) ) {
-				ReportError::InvalidInitialization(this->id, this->type, vtype);
-			}
-		}
+		*typeFlag = true;
 	}
 }
 
