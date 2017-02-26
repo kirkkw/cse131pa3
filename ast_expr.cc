@@ -219,3 +219,14 @@ Type* RelationalExpr::getType(bool *typeError){
 	}
 	return Type::boolType;
 }
+
+Type* PostfixExpr::getType(bool *typeError){
+	Type* ltype = left->getType(typeError);
+
+	if( !ltype->IsNumeric() ) {
+		if(*typeError == false)
+			ReportError::IncompatibleOperand(op,ltype);
+		*typeError = true;
+	}
+	return ltype;
+}
