@@ -54,19 +54,20 @@ void FnDecl::Check() {
 
 		Type* voidType = new Type("void");
 		if( !strcmp( fReturnType->GetTypeName(), voidType->GetTypeName() )) {
-      foundReturn->push(true);
-    } else {
-      foundReturn->push(false);
-    }
+      		foundReturn->push(true); // true if it's void
+    	} else {
+      		foundReturn->push(false); // false if return type isn't void
+    	}
 		returnTypes->push(fReturnType);
 	}
 
 	f->body->Check();
   
-  /*** Check if return statement is found or not ****/
+  	/*** Check if return statement is found or not ****/
   	if( foundReturn->size() > 0 ) {
 		bool found = foundReturn->top();
-		if( !found ) {
+		foundReturn->pop();
+		if( found == false ) {
 			ReportError::ReturnMissing(this);
 		}
 	}

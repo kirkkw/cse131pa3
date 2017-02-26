@@ -225,31 +225,36 @@ void Stmt::Check() {
 
 void DeclStmt::Check() {
 	VarDecl * v = dynamic_cast<VarDecl*>(this->decl);
-	cout << "checking x\n" << flush;
 	v->Check();
 }
 
 void ReturnStmt::Check() {
+	cout << "ReturnStmt Check!" << flush;
 
-  foundReturn->pop(); // found a return statement
-	bool* typeError = new bool;
-	*typeError = false;
-	Type* rType = getType(typeError);
-	
-	if(*typeError == false){
-		if( returnTypes->size() > 0 ) {
-			Type* cmp = returnTypes->top();
-			if( strcmp( cmp->GetTypeName(), rType->GetTypeName() )) {
-				ReportError::ReturnMismatch(this, rType, cmp);
+	if( foundReturn->top() == false) { // skip if return type is void
+		foundReturn->pop();
+		foundReturn->push(true); // found return statement
+
+		bool* typeError = new bool;
+		*typeError = false;
+		Type* rType = getType(typeError);
+
+		if(*typeError == false){
+			if( returnTypes->size() > 0 ) {
+				Type* cmp = returnTypes->top();
+				if( strcmp( cmp->GetTypeName(), rType->GetTypeName() )) {
+					ReportError::ReturnMismatch(this, rType, cmp);
+					*typeError = true;
+				}
 			}
-		}
 		
+		}
 	}
 
 }
 
 Type* ReturnStmt::getType(bool * typeError){
-	return expr->getType(typeError);
+	return expr->getType(typeError) ;
 }
 
 void IfStmt::Check() {
@@ -262,6 +267,7 @@ void IfStmt::Check() {
 		Type* boolType = new Type("bool");
 		if( strcmp( ifType->GetTypeName(), boolType->GetTypeName() )) {
 			ReportError::TestNotBoolean(test);
+			*typeError = true;
 		}
 	}
 	/** check the type for stmt body **/
