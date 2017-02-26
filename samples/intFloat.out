@@ -1,0 +1,168 @@
+
+*** Error line 5.
+	i = f;
+          ^
+*** Incompatible operands: int = float
+
+
+*** Error line 6.
+	f = i;
+          ^
+*** Incompatible operands: float = int
+
+
+*** Error line 7.
+	f *= i;
+          ^^
+*** Incompatible operands: float *= int
+
+
+*** Error line 8.
+	f /= i;
+          ^^
+*** Incompatible operands: float /= int
+
+
+*** Error line 9.
+	f += i;
+          ^^
+*** Incompatible operands: float += int
+
+
+*** Error line 10.
+	f -= i;
+          ^^
+*** Incompatible operands: float -= int
+
+
+*** Error line 11.
+	i*f;
+           ^
+*** Incompatible operands: int * float
+
+
+*** Error line 12.
+	f*i;
+           ^
+*** Incompatible operands: float * int
+
+
+*** Error line 13.
+	i/f;
+           ^
+*** Incompatible operands: int / float
+
+
+*** Error line 14.
+	f/i;
+           ^
+*** Incompatible operands: float / int
+
+
+*** Error line 15.
+	f+i;
+           ^
+*** Incompatible operands: float + int
+
+
+*** Error line 16.
+	i+f;
+           ^
+*** Incompatible operands: int + float
+
+
+*** Error line 17.
+	f-i;
+           ^
+*** Incompatible operands: float - int
+
+
+*** Error line 18.
+	i-f;
+           ^
+*** Incompatible operands: int - float
+
+
+*** Error line 21.
+	b = (i = f);
+               ^
+*** Incompatible operands: int = float
+
+
+*** Error line 22.
+	b = (f = i);
+               ^
+*** Incompatible operands: float = int
+
+
+*** Error line 23.
+	b = (f *= i);
+               ^^
+*** Incompatible operands: float *= int
+
+
+*** Error line 24.
+	b = (f /= i);
+               ^^
+*** Incompatible operands: float /= int
+
+
+*** Error line 25.
+	b = (f += i);
+               ^^
+*** Incompatible operands: float += int
+
+
+*** Error line 26.
+	b = (f -= i);
+               ^^
+*** Incompatible operands: float -= int
+
+
+*** Error line 27.
+	b = i*f;
+               ^
+*** Incompatible operands: int * float
+
+
+*** Error line 28.
+	b = f*i;
+               ^
+*** Incompatible operands: float * int
+
+
+*** Error line 29.
+	b = i/f;
+               ^
+*** Incompatible operands: int / float
+
+
+*** Error line 30.
+	b = f/i;
+               ^
+*** Incompatible operands: float / int
+
+
+*** Error line 31.
+	b = f+i;
+               ^
+*** Incompatible operands: float + int
+
+
+*** Error line 32.
+	b = i+f;
+               ^
+*** Incompatible operands: int + float
+
+
+*** Error line 33.
+	b = f-i;
+               ^
+*** Incompatible operands: float - int
+
+
+*** Error line 34.
+	b = i-f;
+               ^
+*** Incompatible operands: int - float
+

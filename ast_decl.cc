@@ -20,6 +20,7 @@ void VarDecl::Check(){
 		symtable->remove(*oldDecl);
 		ReportError::DeclConflict(this, oldDecl->decl);
 		symtable->insert(*declaration);
+		cout << "decl error!!"<<flush;
 	}
 
 	/**** Check for type errors ***************/

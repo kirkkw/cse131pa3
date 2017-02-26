@@ -1,0 +1,84 @@
+
+*** Error line 1.
+void scopes(int k, float k){
+                          ^
+*** Declaration of 'k' here conflicts with declaration on line 1
+
+
+*** Error line 2.
+   vec2 k;
+         ^
+*** Declaration of 'k' here conflicts with declaration on line 1
+
+
+*** Error line 4.
+   for(k = 0; k < 5; ++k){
+         ^
+*** Incompatible operands: vec2 = int
+
+
+*** Error line 4.
+   for(k = 0; k < 5; ++k){
+                   ^
+*** Incompatible operands: vec2 < int
+
+
+*** Error line 4.
+   for(k = 0; k < 5; ++k){
+              ^^^^^
+*** Test expression must have boolean type
+
+
+*** Error line 7.
+        while(k)
+              ^
+*** Test expression must have boolean type
+
+
+*** Error line 9.
+        for(k = 0; true; k++)
+              ^
+*** Incompatible operands: vec3 = int
+
+
+*** Error line 12.
+        while(k){
+              ^
+*** Test expression must have boolean type
+
+
+*** Error line 15.
+            if(k)
+               ^
+*** Test expression must have boolean type
+
+
+*** Error line 27.
+                        vec4 k;
+                              ^
+*** Declaration of 'k' here conflicts with declaration on line 22
+
+
+*** Error line 29.
+                        float k;
+                               ^
+*** Declaration of 'k' here conflicts with declaration on line 27
+
+
+*** Error line 32.
+            mat4 k;
+                  ^
+*** Declaration of 'k' here conflicts with declaration on line 13
+
+
+*** Error line 34.
+        bool k;
+              ^
+*** Declaration of 'k' here conflicts with declaration on line 5
+
+
+*** Error line 36.
+   int k;
+        ^
+*** Declaration of 'k' here conflicts with declaration on line 2
+

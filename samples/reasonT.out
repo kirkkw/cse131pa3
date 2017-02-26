@@ -1,0 +1,12 @@
+
+*** Error line 2.
+        int x = fakeVar;
+                       ^
+*** No declaration found for variable 'fakeVar'
+
+
+*** Error line 3.
+        return fakeFunction();
+               ^^^^^^^^^^^^
+*** No declaration found for function 'fakeFunction'
+

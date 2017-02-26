@@ -29,7 +29,7 @@ int SymbolTable::insert(Symbol &sym){
 		//tables.back()->insert(sym);
 		return 1;
 	}
-	// back returns the last element
+	// back returns the last/most current scope table
 	tables.back()->insert(sym);
 	return 0;
 }
@@ -41,7 +41,7 @@ void SymbolTable::remove(Symbol &sym){
 /** It should return null if name is not found, return symbol otherwise */
 Symbol* SymbolTable::find(const char *name){
 	ScopedTable* sp = tables.back();
-  return sp->find(name) ;
+ 	return sp->find(name) ;
 }
 
 

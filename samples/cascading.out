@@ -1,0 +1,6 @@
+
+*** Error line 3.
+	    2.0 + 2 + true;
+                    ^
+*** Incompatible operands: float + int
+

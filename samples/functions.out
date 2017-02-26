@@ -1,0 +1,30 @@
+
+*** Error line 11.
+        z = foo();
+            ^^^
+*** Less arguments given to function 'foo': expected 2, given 0
+
+
+*** Error line 12.
+        z = foo(x);
+            ^^^
+*** Less arguments given to function 'foo': expected 2, given 1
+
+
+*** Error line 13.
+        z = foo(x,y,z);
+            ^^^
+*** Extra arguments given to function 'foo': expected 2, given 3
+
+
+*** Error line 14.
+        z = foo(x, true);
+            ^^^
+*** Formal type mismatch in function 'foo' at pos 2: expected 'int', given 'bool'
+
+
+*** Error line 18.
+        bool b = foo(x,y);
+                         ^
+*** Wrong initialization of identifier 'b': idType 'bool' exprType 'int'
+

@@ -1,0 +1,84 @@
+
+*** Error line 4.
+        break;
+             ^
+*** break is only allowed inside a loop
+
+
+*** Error line 5.
+        if(true) break;
+                      ^
+*** break is only allowed inside a loop
+
+
+*** Error line 6.
+        else     break;
+                      ^
+*** break is only allowed inside a loop
+
+
+*** Error line 25.
+        break;        
+             ^
+*** break is only allowed inside a loop
+
+
+*** Error line 26.
+        { break; }
+               ^
+*** break is only allowed inside a loop
+
+
+*** Error line 46.
+        continue;
+                ^
+*** continue is only allowed inside a loop
+
+
+*** Error line 47.
+        if(true) continue;
+                         ^
+*** continue is only allowed inside a loop
+
+
+*** Error line 48.
+        else     continue;
+                         ^
+*** continue is only allowed inside a loop
+
+
+*** Error line 67.
+        continue;        
+                ^
+*** continue is only allowed inside a loop
+
+
+*** Error line 68.
+        { continue; }
+                  ^
+*** continue is only allowed inside a loop
+
+
+*** Error line 78.
+                case 5: continue;
+                                ^
+*** continue is only allowed inside a loop
+
+
+*** Error line 79.
+                case 6: {continue;}
+                                 ^
+*** continue is only allowed inside a loop
+
+
+*** Error line 80.
+                case 7: if(true) continue;
+                                         ^
+*** continue is only allowed inside a loop
+
+
+*** Error line 81.
+                default: continue;
+                                 ^
+*** continue is only allowed inside a loop
+

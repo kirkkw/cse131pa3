@@ -1,0 +1,12 @@
+
+*** Error line 3.
+        int x = 5 + 1.0;        
+                       ^
+*** Declaration of 'x' here conflicts with declaration on line 2
+
+
+*** Error line 3.
+        int x = 5 + 1.0;        
+                       ^
+*** Incompatible operands: int + float
+

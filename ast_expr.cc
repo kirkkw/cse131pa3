@@ -230,3 +230,4 @@ Type* PostfixExpr::getType(bool *typeError){
 	}
 	return ltype;
 }
+

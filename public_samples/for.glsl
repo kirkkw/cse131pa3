@@ -1,3 +1,4 @@
+/*
 int i;
 
 void main() {
@@ -8,6 +9,11 @@ void main() {
 void main2() {
 	for(i++;true ; i = i +5) { };
 }
-
-void main3() {
+*/
+void scope() {	
+	int x;
+	int i;
+	for(true; true; i++) {
+		y = 5;
+	}
 }

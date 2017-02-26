@@ -1,0 +1,30 @@
+
+*** Error line 4.
+    b = a * b;
+      ^
+*** Incompatible operands: mat2 = vec2
+
+
+*** Error line 8.
+    d = d * c;
+      ^
+*** Incompatible operands: mat3 = vec3
+
+
+*** Error line 12.
+    f = e * f;
+      ^
+*** Incompatible operands: mat4 = vec4
+
+
+*** Error line 15.
+    vec3 invalid = c * f;
+                        ^
+*** Incompatible operands: vec3 * mat4
+
+
+*** Error line 17.
+    int g = 1 * 4.0;
+                   ^
+*** Incompatible operands: int * float
+

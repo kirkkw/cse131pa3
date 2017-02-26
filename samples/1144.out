@@ -1,0 +1,6 @@
+
+*** Error line 2.
+	x = 5;
+          ^
+*** No declaration found for variable 'x'
+

@@ -1,0 +1,210 @@
+
+*** Error line 13.
+  v2 = v3;
+     ^
+*** Incompatible operands: vec2 = vec3
+
+
+*** Error line 14.
+  v2 = m2;
+     ^
+*** Incompatible operands: vec2 = mat2
+
+
+*** Error line 15.
+  m2 = f;
+     ^
+*** Incompatible operands: mat2 = float
+
+
+*** Error line 16.
+  f = m2;
+    ^
+*** Incompatible operands: float = mat2
+
+
+*** Error line 17.
+  f = v2;
+    ^
+*** Incompatible operands: float = vec2
+
+
+*** Error line 18.
+  f = b;
+    ^
+*** Incompatible operands: float = bool
+
+
+*** Error line 19.
+  b = f;
+    ^
+*** Incompatible operands: bool = float
+
+
+*** Error line 20.
+  b = i;
+    ^
+*** Incompatible operands: bool = int
+
+
+*** Error line 21.
+  i = b;
+    ^
+*** Incompatible operands: int = bool
+
+
+*** Error line 22.
+  i = f;
+    ^
+*** Incompatible operands: int = float
+
+
+*** Error line 23.
+  i = v2;
+    ^
+*** Incompatible operands: int = vec2
+
+
+*** Error line 24.
+  i = m2;
+    ^
+*** Incompatible operands: int = mat2
+
+
+*** Error line 25.
+  v2 = i;
+     ^
+*** Incompatible operands: vec2 = int
+
+
+*** Error line 26.
+  m2 = i;
+     ^
+*** Incompatible operands: mat2 = int
+
+
+*** Error line 27.
+  i += f;
+    ^^
+*** Incompatible operands: int += float
+
+
+*** Error line 28.
+  i += v2;
+    ^^
+*** Incompatible operands: int += vec2
+
+
+*** Error line 29.
+  i += m2;
+    ^^
+*** Incompatible operands: int += mat2
+
+
+*** Error line 30.
+  i += b;
+    ^^
+*** Incompatible operands: int += bool
+
+
+*** Error line 31.
+  i -= b;
+    ^^
+*** Incompatible operands: int -= bool
+
+
+*** Error line 32.
+  f += v2;
+    ^^
+*** Incompatible operands: float += vec2
+
+
+*** Error line 33.
+  f += m2;
+    ^^
+*** Incompatible operands: float += mat2
+
+
+*** Error line 34.
+  f += b;
+    ^^
+*** Incompatible operands: float += bool
+
+
+*** Error line 35.
+  b += i;
+    ^^
+*** Incompatible operands: bool += int
+
+
+*** Error line 36.
+  b += f;
+    ^^
+*** Incompatible operands: bool += float
+
+
+*** Error line 37.
+  b += v2;
+    ^^
+*** Incompatible operands: bool += vec2
+
+
+*** Error line 38.
+  b += m2;
+    ^^
+*** Incompatible operands: bool += mat2
+
+
+*** Error line 39.
+  m2 += v2;
+     ^^
+*** Incompatible operands: mat2 += vec2
+
+
+*** Error line 40.
+  m2 += b;
+     ^^
+*** Incompatible operands: mat2 += bool
+
+
+*** Error line 41.
+  m2 += i;
+     ^^
+*** Incompatible operands: mat2 += int
+
+
+*** Error line 42.
+  v2 += m2;
+     ^^
+*** Incompatible operands: vec2 += mat2
+
+
+*** Error line 43.
+  v2 += b;
+     ^^
+*** Incompatible operands: vec2 += bool
+
+
+*** Error line 44.
+  v2 += i;
+     ^^
+*** Incompatible operands: vec2 += int
+
+
+*** Error line 45.
+  v2 /= m2;
+     ^^
+*** Incompatible operands: vec2 /= mat2
+
+
+*** Error line 46.
+  m2 *= v2;
+     ^^
+*** Incompatible operands: mat2 *= vec2
+
+
+*** Error line 47.
+  m2 /= v2;
+     ^^
+*** Incompatible operands: mat2 /= vec2
+

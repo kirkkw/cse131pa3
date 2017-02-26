@@ -1,0 +1,36 @@
+
+*** Error line 8.
+    float y = b || b;
+                    ^
+*** Wrong initialization of identifier 'y': idType 'float' exprType 'bool'
+
+
+*** Error line 9.
+    y = b + 5.0;
+               ^
+*** Incompatible operands: bool + float
+
+
+*** Error line 10.
+    float z = 2;
+               ^
+*** Wrong initialization of identifier 'z': idType 'float' exprType 'int'
+
+
+*** Error line 29.
+        if(r){
+           ^
+*** Test expression must have boolean type
+
+
+*** Error line 30.
+          r = y;
+            ^
+*** Incompatible operands: int = float
+
+
+*** Error line 34.
+    int g = f(y);
+            ^
+*** Formal type mismatch in function 'f' at pos 1: expected 'int', given 'float'
+
