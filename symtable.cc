@@ -23,10 +23,16 @@ void SymbolTable::pop(){
  *  It should throw an error when there is a declaration conflict while inserting
  *  returns 0 when symbol inserted without duplicates
  *  returns 1 when symbol inserted was a duplicate but replaced*/
-int SymbolTable::insert(Symbol &sym){
-	if( find(sym.name) != NULL ) {
-		//tables.back()->remove(sym);
-		//tables.back()->insert(sym);
+int SymbolTable::insert(Symbol &sym, bool *error){
+	
+	// redeclaration case
+	if( tables.back()->find(sym.name) != NULL ) {
+		Symbol *oldDecl = tables.back()->find(sym.name);
+		tables.back()->remove(*oldDecl);
+		if(*error == false)
+			ReportError::DeclConflict(sym.decl,oldDecl->decl);
+		*error = true;
+		tables.back()->insert(sym);
 		return 1;
 	}
 	// back returns the last element
@@ -40,8 +46,13 @@ void SymbolTable::remove(Symbol &sym){
 }
 /** It should return null if name is not found, return symbol otherwise */
 Symbol* SymbolTable::find(const char *name){
-	ScopedTable* sp = tables.back();
-  return sp->find(name) ;
+	for( int i = tables.size()-1; i >= 0 ; i--){
+		ScopedTable* sp = tables[i];
+		Symbol* sym = sp->find(name);
+		if( sym != NULL )
+			return sym;
+	}
+	return NULL;
 }
 
 
